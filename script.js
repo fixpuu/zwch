@@ -22,11 +22,24 @@ function trackBotClick(source) {
 }
 window.trackBotClick = trackBotClick;
 
-// ── Countdown Timer ───────────────────────────────────
+// ── Countdown Timer (Evergreen — resets every 7 days) ─
 (function initCountdown() {
-  // Sept 25 2026 23:59:59 UTC+2 (Europe/Rome)
-  // That equals Sept 25 2026 21:59:59 UTC
-  const TARGET = new Date('2026-09-25T21:59:59Z').getTime();
+  const DURATION_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
+  const STORAGE_KEY = 'zwch_offer_expiry';
+
+  // Get or create expiry timestamp
+  function getExpiry() {
+    let stored = localStorage.getItem(STORAGE_KEY);
+    let expiry = stored ? parseInt(stored, 10) : NaN;
+    // If missing or already expired, set a fresh 7-day window
+    if (isNaN(expiry) || Date.now() >= expiry) {
+      expiry = Date.now() + DURATION_MS;
+      localStorage.setItem(STORAGE_KEY, expiry);
+    }
+    return expiry;
+  }
+
+  let TARGET = getExpiry();
 
   const elDays  = document.getElementById('cd-days');
   const elHours = document.getElementById('cd-hours');
@@ -47,36 +60,23 @@ window.trackBotClick = trackBotClick;
   }
 
   function tick() {
-    const now   = Date.now();
-    const diff  = TARGET - now;
+    const now  = Date.now();
+    const diff = TARGET - now;
 
     if (diff <= 0) {
-      // Expired
-      elTimer.classList.add('hidden');
-      elExpir.classList.remove('hidden');
+      // Reset for another 7 days
+      TARGET = Date.now() + DURATION_MS;
+      localStorage.setItem(STORAGE_KEY, TARGET);
       return;
     }
 
-    const totalSecs  = Math.floor(diff / 1000);
-    const days       = Math.floor(totalSecs / 86400);
-    const hours      = Math.floor((totalSecs % 86400) / 3600);
-    const mins       = Math.floor((totalSecs % 3600)  / 60);
-    const secs       = totalSecs % 60;
+    const totalSecs = Math.floor(diff / 1000);
+    elDays.textContent  = pad(Math.floor(totalSecs / 86400));
+    elHours.textContent = pad(Math.floor((totalSecs % 86400) / 3600));
+    elMins.textContent  = pad(Math.floor((totalSecs % 3600) / 60));
+    elSecs.textContent  = pad(totalSecs % 60);
 
-    elDays.textContent  = pad(days);
-    elHours.textContent = pad(hours);
-    elMins.textContent  = pad(mins);
-    elSecs.textContent  = pad(secs);
-
-    // Turn red when under 24 hours
     setUrgentStyle(diff < 86400 * 1000);
-
-    // GA4 track when timer hits 1 hour remaining
-    if (diff < 3600 * 1000 && diff > 3599 * 1000) {
-      if (typeof gtag === 'function') {
-        gtag('event', 'countdown_under_1h', { event_category: 'Engagement' });
-      }
-    }
   }
 
   tick();
