@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="./favicon.png" />
+  <link rel="shortcut icon" href="./favicon.png" />
+  <meta name="description" content="Get 18 months of Google Gemini Pro access for just €10. Instant delivery via Telegram. Limited availability — only 4 units left. Official digital licenses from ZWCH Shop." />
+  <meta name="keywords" content="Gemini Pro, Google Gemini, AI access, Gemini Pro license, cheap Gemini Pro, AI subscription, ZWCH Shop" />
+  <meta property="og:title" content="Get 18 Months of Google Gemini Pro — Only €10 | ZWCH Shop" />
+  <meta property="og:description" content="Unlimited AI power for coding, analysis & content creation. Instant delivery via Telegram. Limited-time offer — only 4 units left." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="./hero_bg.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Get 18 Months of Google Gemini Pro — Only €10" />
+  <meta name="twitter:description" content="Official Gemini Pro license. Instant Telegram delivery. One-time €10 payment. 4 units only." />
+  <title>Get 18 Months of Google Gemini Pro — Only €10 | ZWCH Shop</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- Schema Markup: Product -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    "name": "Google Gemini Pro 18-Month Access License",
+    "description": "Official Google Gemini Pro license for 18 months of full AI access. Instant delivery via Telegram.",
+    "brand": { "@type": "Brand", "name": "ZWCH Shop" },
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "EUR",
+      "price": "10.00",
+      "availability": "https://schema.org/LimitedAvailability",
+      "seller": { "@type": "Organization", "name": "ZWCH Shop" }
+    }
+  }
+  </script>
+
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX', { send_page_view: true });
+
+    let scrollDepths = [25, 50, 75, 90];
+    let fired = {};
+    window.addEventListener('scroll', () => {
+      const pct = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+      scrollDepths.forEach(d => {
+        if (pct >= d && !fired[d]) {
+          fired[d] = true;
+          gtag('event', 'scroll_depth', { depth_percentage: d });
+        }
+      });
+    });
+  </script>
+
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+
+  <!-- GLOBAL PARTICLES CANVAS (fixed, behind everything) -->
+  <canvas id="particles-canvas" aria-hidden="true"></canvas>
+
+  <!-- FLOATING STICKY CTA (mobile) -->
+  <a href="https://t.me/zwchshope_bot" id="sticky-cta" class="sticky-cta" target="_blank" rel="noopener" onclick="trackBotClick('sticky_cta')">
+    <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.34 14.082l-2.95-.924c-.642-.204-.656-.642.136-.953l11.57-4.461c.536-.194 1.006.131.798.477z"/></svg>
+    Chat on Telegram
+  </a>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner container">
+      <a href="#" class="nav-logo">
+        <span class="logo-zw">ZW</span><span class="logo-ch">CH</span>
+        <span class="logo-shop">Shop</span>
+      </a>
+      <a href="https://t.me/zwchshope_bot" class="btn btn-nav" target="_blank" rel="noopener" onclick="trackBotClick('navbar')">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.34 14.082l-2.95-.924c-.642-.204-.656-.642.136-.953l11.57-4.461c.536-.194 1.006.131.798.477z"/></svg>
+        Buy Now
+      </a>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="hero" id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+
+    <div class="container hero-inner">
+      <h1 class="hero-headline">
+        Get <span class="accent-glow">18 Months</span> of<br />
+        Google Gemini Pro<br />
+        <span class="price-hero">For Just <span class="accent-glow">&#8364;10</span></span>
+      </h1>
+
+      <p class="hero-sub">Instant delivery via Telegram.</p>
+
+      <div class="stock-row">
+        <div class="stock-badge">
+          <span class="stock-dot"></span>
+          Only <strong>4 units</strong> available
+        </div>
+      </div>
+
+      <div class="hero-ctas">
+        <a href="https://t.me/zwchshope_bot" class="btn btn-primary btn-lg" id="hero-cta" target="_blank" rel="noopener" onclick="trackBotClick('hero_primary')">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.34 14.082l-2.95-.924c-.642-.204-.656-.642.136-.953l11.57-4.461c.536-.194 1.006.131.798.477z"/></svg>
+          Buy Now on Telegram
+        </a>
+        <p class="hero-reassure">&#10003; One-time payment &nbsp;&middot;&nbsp; &#10003; Instant delivery &nbsp;&middot;&nbsp; &#10003; No subscriptions</p>
+      </div>
+    </div>
+
+    <div class="hero-scroll-hint" aria-hidden="true">
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- OFFER BREAKDOWN -->
+  <section class="offer-section" id="offer">
+    <div class="container">
+      <p class="section-label" style="text-align:center; margin-bottom: 20px;">Limited-time offer</p>
+
+      <div class="offer-card">
+
+        <!-- Top row: price + countdown -->
+        <div class="offer-top">
+          <div class="offer-price-block">
+            <span class="original-price">&#8364;396.00</span>
+            <div class="price-row">
+              <span class="deal-price">&#8364;10</span>
+              <span class="savings-tag">&#8722;97%</span>
+            </div>
+            <span class="price-sub">one-time &middot; 18 months access</span>
+          </div>
+
+          <div class="offer-vdivider"></div>
+
+          <div class="countdown-wrapper">
+            <p class="countdown-label">&#9200; Offer ends in</p>
+            <div class="countdown" id="countdown">
+              <div class="cd-block">
+                <span class="cd-num" id="cd-days">07</span>
+                <span class="cd-unit">Days</span>
+              </div>
+              <div class="cd-sep">:</div>
+              <div class="cd-block">
+                <span class="cd-num" id="cd-hours">00</span>
+                <span class="cd-unit">Hrs</span>
+              </div>
+              <div class="cd-sep">:</div>
+              <div class="cd-block">
+                <span class="cd-num" id="cd-mins">00</span>
+                <span class="cd-unit">Min</span>
+              </div>
+              <div class="cd-sep">:</div>
+              <div class="cd-block">
+                <span class="cd-num" id="cd-secs">00</span>
+                <span class="cd-unit">Sec</span>
+              </div>
+            </div>
+            <p class="countdown-expired hidden" id="countdown-expired">&#9888;&#65039; Offer Expired</p>
+          </div>
+        </div>
+
+        <div class="offer-divider"></div>
+
+        <!-- Bottom row: benefits + CTA -->
+        <div class="offer-bottom">
+          <ul class="benefit-list">
+            <li><span class="check">&#10003;</span> 18 months full Gemini Pro access</li>
+            <li><span class="check">&#10003;</span> Instant delivery via Telegram</li>
+            <li><span class="check">&#10003;</span> No hidden fees &mdash; one-time only</li>
+            <li><span class="check">&#10003;</span> 24/7 Telegram support</li>
+          </ul>
+
+          <a href="https://t.me/zwchshope_bot" class="btn btn-primary offer-cta" target="_blank" rel="noopener" onclick="trackBotClick('offer_section')">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.34 14.082l-2.95-.924c-.642-.204-.656-.642.136-.953l11.57-4.461c.536-.194 1.006.131.798.477z"/></svg>
+            Get Access &mdash; &#8364;10
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-section" id="how-it-works">
+    <div class="container">
+      <p class="section-label">Simple &amp; Fast</p>
+      <h2 class="section-title">How It Works</h2>
+      <p class="section-sub">Three steps. Thirty seconds. Then you're in.</p>
+
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-num">01</div>
+          <div class="step-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="40" height="40"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.34 14.082l-2.95-.924c-.642-.204-.656-.642.136-.953l11.57-4.461c.536-.194 1.006.131.798.477z"/></svg>
+          </div>
+          <h3>Open Our Bot</h3>
+          <p>Click "Buy Now" to open <strong>@zwchshope_bot</strong> directly in Telegram. No registration required.</p>
+        </div>
+
+        <div class="step-connector" aria-hidden="true">
+          <svg viewBox="0 0 40 24" fill="none" width="40" height="24"><path d="M0 12 H35 M28 5 L38 12 L28 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num">02</div>
+          <div class="step-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="40" height="40"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zM7 12l3.5 3.5 6.5-7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Confirm &amp; Pay</h3>
+          <p>Select the Gemini Pro 18-month package and complete your <strong>&#8364;10 one-time payment</strong> via Telegram's secure checkout.</p>
+        </div>
+
+        <div class="step-connector" aria-hidden="true">
+          <svg viewBox="0 0 40 24" fill="none" width="40" height="24"><path d="M0 12 H35 M28 5 L38 12 L28 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num">03</div>
+          <div class="step-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="40" height="40"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Get Instant Access</h3>
+          <p>Your personal activation link arrives in Telegram chat <strong>within seconds</strong>. Click it, log in to Google &mdash; done.</p>
+        </div>
+      </div>
+
+      <div class="how-badge">Instant. Secure. No subscriptions.</div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features-section" id="features">
+    <div class="container">
+      <p class="section-label">Everything included</p>
+      <h2 class="section-title">What You Get With Gemini Pro</h2>
+      <p class="section-sub">18 months of the full, unrestricted AI experience &mdash; not a trial, not a watered-down version.</p>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="36" height="36"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <h3>Unlimited Coding Assistance</h3>
+          <p>AI-powered code generation, debugging, and optimization across all major languages. Ship faster, break fewer things.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="36" height="36"><path d="M9 19v-6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2zm0 0V9a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v10m-6 0a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2m0 0V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Advanced Analysis &amp; Research</h3>
+          <p>Deep data analysis, trend identification, research synthesis. Turn raw information into sharp, actionable insights.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="36" height="36"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Content Creation &amp; Writing</h3>
+          <p>Blog posts, emails, scripts, ad copy, creative writing &mdash; Gemini Pro handles every format with precision and style.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE US -->
+  <section class="trust-section" id="why-us">
+    <div class="container">
+      <div class="trust-inner">
+        <div class="trust-text">
+          <p class="section-label">Built on trust</p>
+          <h2 class="section-title">Why ZWCH Shop?</h2>
+          <p class="section-sub">We don't cut corners. Every license is real, every delivery is instant, every question gets answered.</p>
+
+          <ul class="trust-list">
+            <li>
+              <span class="trust-icon">&#127991;&#65039;</span>
+              <div>
+                <strong>Official digital license distributor</strong>
+                <p>Every license is sourced through authorized channels. What you activate is 100% genuine.</p>
+              </div>
+            </li>
+            <li>
+              <span class="trust-icon">&#128230;</span>
+              <div>
+                <strong>4 units currently in stock</strong>
+                <p>Real-time availability. When they're gone, they're gone &mdash; this isn't manufactured urgency.</p>
+              </div>
+            </li>
+            <li>
+              <span class="trust-icon">&#128172;</span>
+              <div>
+                <strong>24/7 instant support via Telegram</strong>
+                <p>Issues at 3 AM? We're there. Reach us at <a href="https://t.me/zwchshope_bot" target="_blank" rel="noopener">@zwchshope_bot</a> any time.</p>
+              </div>
+            </li>
+            <li>
+              <span class="trust-icon">&#128142;</span>
+              <div>
+                <strong>Zero hidden costs</strong>
+                <p>&#8364;10. That's literally it. No recurring charges, no activation fees, no surprises.</p>
+              </div>
+            </li>
+            <li>
+              <span class="trust-icon">&#9989;</span>
+              <div>
+                <strong>Proven &amp; trusted platform</strong>
+                <p>ZWCH Shop has been delivering digital licenses reliably. Your investment is protected.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="trust-visual">
+          <div class="trust-card-big">
+            <div class="tcb-header">
+              <div class="tcb-avatar">Z</div>
+              <div>
+                <strong>ZWCH Shop</strong>
+                <span>Official Bot</span>
+              </div>
+              <div class="tcb-verified">&#10003; Verified</div>
+            </div>
+            <div class="tcb-msg">
+              <div class="tcb-bubble">
+                &#127881; Payment confirmed!<br/>
+                Your Gemini Pro activation link:<br/>
+                <span class="tcb-link">gemini.google.com/activate?key=&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;</span>
+              </div>
+              <span class="tcb-time">Just now</span>
+            </div>
+            <div class="tcb-footer">
+              <div class="tcb-stat">
+                <span class="tcb-val">~5s</span>
+                <span class="tcb-key">Avg. delivery</span>
+              </div>
+              <div class="tcb-divider-v"></div>
+              <div class="tcb-stat">
+                <span class="tcb-val">24/7</span>
+                <span class="tcb-key">Support</span>
+              </div>
+              <div class="tcb-divider-v"></div>
+              <div class="tcb-stat">
+                <span class="tcb-val">&#8364;10</span>
+                <span class="tcb-key">One-time</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section" id="faq">
+    <div class="container">
+      <p class="section-label">Got questions?</p>
+      <h2 class="section-title">Frequently Asked Questions</h2>
+
+      <div class="faq-list" id="faq-list">
+
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">
+            Is this a legitimate/official license?
+            <span class="faq-arrow">&#9662;</span>
+          </button>
+          <div class="faq-a">
+            <p>Yes. All licenses are official Google Gemini Pro licenses distributed through authorized channels. You receive a personal activation link that you use directly with Google &mdash; no third-party middlemen, no workarounds.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">
+            How fast is the delivery?
+            <span class="faq-arrow">&#9662;</span>
+          </button>
+          <div class="faq-a">
+            <p>Instant. Your activation link appears in Telegram chat immediately after payment confirmation &mdash; typically within seconds. There's no manual processing involved.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">
+            What's your refund policy?
+            <span class="faq-arrow">&#9662;</span>
+          </button>
+          <div class="faq-a">
+            <p>Refunds are accepted within 24 hours of purchase, provided the license has not yet been activated. Once 24 hours have passed or the license has been activated, sales are final. To request a refund, contact <a href="https://t.me/zwchshope_bot" target="_blank" rel="noopener">@zwchshope_bot</a>.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">
+            Can one license be used on multiple accounts?
+            <span class="faq-arrow">&#9662;</span>
+          </button>
+          <div class="faq-a">
+            <p>No. Each activation link is tied to a single Google account. One person, one account, per purchase. If you need access for multiple accounts, you'll need to purchase additional licenses.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">
+            What payment methods do you accept?
+            <span class="faq-arrow">&#9662;</span>
+          </button>
+          <div class="faq-a">
+            <p>Payments are processed directly through Telegram's native payment system. All standard payment methods available via Telegram are supported &mdash; including card payments and local options depending on your region.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">
+            Is this a subscription or a one-time payment?
+            <span class="faq-arrow">&#9662;</span>
+          </button>
+          <div class="faq-a">
+            <p>One-time payment. &#8364;10, once. You get 18 months of continuous Gemini Pro access with zero recurring charges, no hidden fees, no surprise deductions. Your bank statement will show a single charge.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">
+            What happens after 18 months?
+            <span class="faq-arrow">&#9662;</span>
+          </button>
+          <div class="faq-a">
+            <p>After 18 months your Gemini Pro access expires. You can purchase another license from ZWCH Shop to continue &mdash; no data loss, no disruption beyond the expiry date.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">
+            How do I activate my license?
+            <span class="faq-arrow">&#9662;</span>
+          </button>
+          <div class="faq-a">
+            <p>After payment, your activation link lands in your Telegram chat. Click it, make sure you're logged into the correct Google account, and your Gemini Pro access activates immediately. The whole process takes under a minute.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">
+            What if activation doesn't work?
+            <span class="faq-arrow">&#9662;</span>
+          </button>
+          <div class="faq-a">
+            <p>Contact our support team at <a href="https://t.me/zwchshope_bot" target="_blank" rel="noopener">@zwchshope_bot</a> &mdash; we're available 24/7 and typically resolve technical issues within a few minutes. You will not be left hanging.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="faq-cta">
+        <p>Still have a question?</p>
+        <a href="https://t.me/zwchshope_bot" class="btn btn-primary" target="_blank" rel="noopener" onclick="trackBotClick('faq_section')">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.34 14.082l-2.95-.924c-.642-.204-.656-.642.136-.953l11.57-4.461c.536-.194 1.006.131.798.477z"/></svg>
+          Ask on Telegram
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA BANNER -->
+  <section class="final-cta-section" id="final-cta">
+    <div class="container">
+      <div class="final-cta-inner">
+        <div class="final-cta-glow" aria-hidden="true"></div>
+        <p class="section-label">Limited availability</p>
+        <h2>Don't Let This One Slip Away</h2>
+        <p>4 units. 7 days. &#8364;10. Instant access to Google's most powerful AI model for 18 full months.</p>
+        <a href="https://t.me/zwchshope_bot" class="btn btn-primary btn-lg" target="_blank" rel="noopener" onclick="trackBotClick('final_cta')">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.34 14.082l-2.95-.924c-.642-.204-.656-.642.136-.953l11.57-4.461c.536-.194 1.006.131.798.477z"/></svg>
+          Grab My License Now
+        </a>
+        <p class="final-small">Secure checkout via Telegram &middot; Instant delivery &middot; 24/7 support</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" id="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="#" class="nav-logo">
+            <span class="logo-zw">ZW</span><span class="logo-ch">CH</span>
+            <span class="logo-shop">Shop</span>
+          </a>
+          <p>Official Digital Licenses &amp; Subscriptions.<br/>Instant delivery, verified products, zero surprises.</p>
+          <a href="https://t.me/zwchshope_bot" class="btn btn-primary" target="_blank" rel="noopener" onclick="trackBotClick('footer')">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.34 14.082l-2.95-.924c-.642-.204-.656-.642.136-.953l11.57-4.461c.536-.194 1.006.131.798.477z"/></svg>
+            Buy Now on Telegram
+          </a>
+        </div>
+
+        <div class="footer-links">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="https://t.me/zwchshope_bot" target="_blank" rel="noopener">24/7 Telegram Support</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#how-it-works">How It Works</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="./terms.html">Terms of Service</a></li>
+            <li><a href="./privacy.html">Privacy Policy</a></li>
+            <li><a href="https://t.me/zwchshope_bot" target="_blank" rel="noopener">Contact Support</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 ZWCH Shop. All rights reserved. Digital licenses distributed through authorized channels.</p>
+        <p>Support: <a href="https://t.me/zwchshope_bot" target="_blank" rel="noopener">@zwchshope_bot</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./script.js"></script>
+</body>
+</html>
