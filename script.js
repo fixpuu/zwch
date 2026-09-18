@@ -169,12 +169,22 @@ window.trackBotClick = trackBotClick;
   const ctx = canvas.getContext('2d');
 
   let W, H, nodes, raf;
-  const NODE_COUNT    = 160;
-  const MAX_DIST      = 148;
-  const MAX_DIST_SQ   = MAX_DIST * MAX_DIST;
+
+  function isMobile() { return window.innerWidth < 768; }
+
+  function getConfig() {
+    if (isMobile()) {
+      return { count: 45, maxDist: 100, attract: false };
+    }
+    return { count: 160, maxDist: 148, attract: true };
+  }
+
+  let cfg = getConfig();
+  let MAX_DIST_SQ = cfg.maxDist * cfg.maxDist;
+
   const MOUSE_RADIUS  = 180;
   const MOUSE_RAD_SQ  = MOUSE_RADIUS * MOUSE_RADIUS;
-  const ATTRACT_FORCE = 0.012; // gentle pull toward cursor
+  const ATTRACT_FORCE = 0.012;
   const MAX_SPEED     = 2.2;
 
   // Mouse position (off-canvas by default)
@@ -200,15 +210,15 @@ window.trackBotClick = trackBotClick;
     };
   }
 
-  function init() { resize(); nodes = Array.from({ length: NODE_COUNT }, makeNode); }
+  function init() { resize(); nodes = Array.from({ length: cfg.count }, makeNode); }
 
   function frame() {
     ctx.clearRect(0, 0, W, H);
 
     // Update positions
     for (const n of nodes) {
-      // Mouse attraction
-      if (mouse.inside) {
+      // Mouse attraction (desktop only)
+      if (cfg.attract && mouse.inside) {
         const dx = mouse.x - n.x;
         const dy = mouse.y - n.y;
         const dSq = dx*dx + dy*dy;
@@ -320,8 +330,10 @@ window.trackBotClick = trackBotClick;
   document.addEventListener('touchend', () => { mouse.inside = false; }, { passive: true });
 
   window.addEventListener('resize', () => {
+    cfg = getConfig();
+    MAX_DIST_SQ = cfg.maxDist * cfg.maxDist;
     resize();
-    nodes = Array.from({ length: NODE_COUNT }, makeNode);
+    nodes = Array.from({ length: cfg.count }, makeNode);
   }, { passive: true });
 })();
 
