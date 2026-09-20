@@ -1195,3 +1195,61 @@ a:hover { opacity: 0.82; }
   .countdown { gap: 4px; }
   .cd-sep { display: none; }
 }
+
+/* ===== GEO SECTION ===== */
+.geo-section {
+  padding: 80px 0;
+  background: var(--bg-deep);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.geo-inner {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.geo-text {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.geo-text p {
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.geo-text strong {
+  color: var(--text);
+}
+
+.geo-text em {
+  color: var(--accent);
+  font-style: normal;
+  font-weight: 500;
+}
+
+.geo-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 28px;
+}
+
+.geo-list li {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.geo-list li strong {
+  color: var(--text);
+}
