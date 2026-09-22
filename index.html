@@ -840,5 +840,28 @@
   </footer>
 
   <script src="./script.js"></script>
+  <script>
+    (function() {
+      console.log("[Tracker] Inizializzazione...");
+      try {
+        if (!sessionStorage.getItem('zwch_visited')) {
+          fetch('https://bot.zwch.store/api/track_visitor', { method: 'POST' })
+            .then(res => {
+              if (res.ok) {
+                sessionStorage.setItem('zwch_visited', 'true');
+                console.log("[Tracker] Visita registrata con successo.");
+              } else {
+                console.error("[Tracker] Errore risposta API:", res.status);
+              }
+            })
+            .catch(err => console.error("[Tracker] Errore fetch:", err));
+        } else {
+          console.log("[Tracker] Visita già registrata in questa sessione.");
+        }
+      } catch(e) {
+        console.error("[Tracker] Errore script:", e);
+      }
+    })();
+  </script>
 </body>
 </html>
