@@ -90,10 +90,45 @@
       "priceCurrency": "EUR",
       "price": "10.00",
       "priceValidUntil": "2027-12-31",
+      "validFrom": "2024-01-01T00:00:00Z",
       "availability": "https://schema.org/LimitedAvailability",
       "itemCondition": "https://schema.org/NewCondition",
       "url": "https://zwch.store/",
-      "seller": { "@type": "Organization", "name": "ZWCH Shop" }
+      "seller": { "@type": "Organization", "name": "ZWCH Shop" },
+      "hasMerchantReturnPolicy": {
+        "@type": "MerchantReturnPolicy",
+        "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted",
+        "merchantReturnDays": "0",
+        "returnMethod": "https://schema.org/ReturnInStore",
+        "returnFees": "https://schema.org/ReturnFeesCustomerResponsibility"
+      },
+      "shippingDetails": {
+        "@type": "OfferShippingDetails",
+        "shippingRate": {
+          "@type": "MonetaryAmount",
+          "value": "0",
+          "currency": "EUR"
+        },
+        "shippingDestination": {
+          "@type": "DefinedRegion",
+          "addressCountry": "IT"
+        },
+        "deliveryTime": {
+          "@type": "ShippingDeliveryTime",
+          "handlingTime": {
+            "@type": "QuantitativeValue",
+            "minValue": 0,
+            "maxValue": 0,
+            "unitCode": "d"
+          },
+          "transitTime": {
+            "@type": "QuantitativeValue",
+            "minValue": 0,
+            "maxValue": 0,
+            "unitCode": "d"
+          }
+        }
+      }
     },
     "aggregateRating": {
       "@type": "AggregateRating",
@@ -708,6 +743,26 @@
           </button>
           <div class="faq-a">
             <p>Contact our support team at <a href="https://t.me/zwchshope_bot" target="_blank" rel="noopener">@zwchshope_bot</a> &mdash; we're available 24/7 and typically resolve technical issues within a few minutes. You will not be left hanging.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">
+            Is this a "Family Sharing" group or a pre-made account?
+            <span class="faq-arrow">&#9662;</span>
+          </button>
+          <div class="faq-a">
+            <p><strong>Absolutely not.</strong> Unlike many cheap offers, you are NOT joining a random family group (which can get banned), and you are NOT getting a pre-made account. You receive a direct activation link that upgrades your own, main personal Google account. No VPN required, fully functional on Italian accounts.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">
+            Why is ZWCH Shop better than G2A, Kinguin, or Plati?
+            <span class="faq-arrow">&#9662;</span>
+          </button>
+          <div class="faq-a">
+            <p>Marketplaces like G2A or Kinguin are full of resellers offering unstable family invites or accounts from foreign countries. Plus, they add hidden fees and taxes (VAT) at checkout. ZWCH Shop is a direct distributor: you get a stable, personal activation link, and the price is exactly €10 flat &mdash; zero extra taxes, zero hidden fees at checkout.</p>
           </div>
         </div>
 
