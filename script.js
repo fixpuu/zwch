@@ -372,3 +372,396 @@ window.trackBotClick = trackBotClick;
     });
   }, 5000);
 })();
+
+// ═══════════════════════════════════════════════════════════════════
+// ZWCH WEB SHOP — Modal, Shop, Auth, Orders modules
+// ═══════════════════════════════════════════════════════════════════
+
+const API = 'https://bot.zwch.store';
+const TOKEN_KEY = 'zwch_auth_token';
+const EMAIL_KEY = 'zwch_auth_email';
+
+// ── ZWCHModal ─────────────────────────────────────────────────────
+const ZWCHModal = (() => {
+  function open(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    el.addEventListener('click', _backdropClose);
+  }
+
+  function close(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.classList.remove('active');
+    document.body.style.overflow = '';
+    el.removeEventListener('click', _backdropClose);
+  }
+
+  function _backdropClose(e) {
+    if (e.target === e.currentTarget) close(e.currentTarget.id);
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-overlay.active').forEach(m => close(m.id));
+    }
+  });
+
+  return { open, close };
+})();
+
+// ── ZWCHShop ─────────────────────────────────────────────────────
+const ZWCHShop = (() => {
+  let _products = [];
+  let _selectedProduct = null;
+
+  async function init() {
+    try {
+      const res = await fetch(`${API}/api/shop/products`);
+      if (!res.ok) throw new Error('API error');
+      const json = await res.json();
+      _products = json.data || [];
+      _renderCards();
+    } catch (err) {
+      const grid = document.getElementById('shop-grid');
+      if (grid) grid.innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:30px 0;">Could not load products. Please try again later.</p>';
+    }
+  }
+
+  function _renderCards() {
+    const grid = document.getElementById('shop-grid');
+    if (!grid) return;
+
+    if (_products.length === 0) {
+      grid.innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:30px 0;">No products available right now.</p>';
+      return;
+    }
+
+    grid.innerHTML = _products.map(p => {
+      const stock = p.stock_count || 0;
+      const price = `\u20ac${(p.price_cents / 100).toFixed(2)}`;
+      const isOut = stock === 0;
+      const isLow = !isOut && stock <= 3;
+
+      let stockClass = 'product-card__stock--available';
+      let stockText = `\u2705 ${stock} in stock`;
+      if (isLow)  { stockClass = 'product-card__stock--low'; stockText = `\u26a1 Only ${stock} left`; }
+      if (isOut)  { stockClass = 'product-card__stock--out'; stockText = '\u274c Sold out'; }
+
+      return `
+        <div class="product-card">
+          <div class="product-card__name">${_esc(p.name)}</div>
+          <div class="product-card__desc">${_esc(p.description || '')}</div>
+          <div class="product-card__price">${price}</div>
+          <span class="product-card__stock ${stockClass}">${stockText}</span>
+          <button class="btn btn-primary product-card__btn"
+            ${isOut ? 'disabled' : ''}
+            onclick="ZWCHShop.openBuyModal(${p.id})">
+            ${isOut ? '\ud83d\udd12 Sold Out' : 'Buy Now \u2014 ' + price}
+          </button>
+        </div>`;
+    }).join('');
+  }
+
+  function openBuyModal(productId) {
+    _selectedProduct = _products.find(p => p.id === productId);
+    if (!_selectedProduct) return;
+
+    document.getElementById('modal-buy-product-name').textContent = _selectedProduct.name;
+    document.getElementById('modal-buy-price').textContent = `\u20ac${(_selectedProduct.price_cents / 100).toFixed(2)}`;
+    document.getElementById('buy-email').value = localStorage.getItem(EMAIL_KEY) || '';
+    _setBuyLoading(false);
+    ZWCHModal.open('modal-buy');
+    setTimeout(() => document.getElementById('buy-email').focus(), 200);
+  }
+
+  async function submitBuy(e) {
+    e.preventDefault();
+    if (!_selectedProduct) return false;
+
+    const email = document.getElementById('buy-email').value.trim();
+    if (!email || !/^[\w.+-]+@[\w-]+\.[\w.]+$/.test(email)) {
+      document.getElementById('buy-email').focus();
+      return false;
+    }
+
+    _setBuyLoading(true);
+    try {
+      const res = await fetch(`${API}/api/shop/checkout`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ product_id: _selectedProduct.id, email }),
+      });
+      const json = await res.json();
+
+      if (res.ok && json.checkout_url) {
+        localStorage.setItem(EMAIL_KEY, email);
+        window.location.href = json.checkout_url;
+      } else {
+        _setBuyLoading(false);
+        alert(json.error || 'Something went wrong. Please try again.');
+      }
+    } catch {
+      _setBuyLoading(false);
+      alert('Network error. Please check your connection.');
+    }
+    return false;
+  }
+
+  function _setBuyLoading(loading) {
+    document.getElementById('btn-buy-label').classList.toggle('hidden', loading);
+    document.getElementById('btn-buy-loading').classList.toggle('hidden', !loading);
+    document.getElementById('btn-buy-submit').disabled = loading;
+  }
+
+  function _esc(str) {
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+  return { openBuyModal, submitBuy };
+})();
+
+// ── ZWCHAuth ─────────────────────────────────────────────────────
+const ZWCHAuth = (() => {
+  let _pendingEmail = '';
+
+  function _getToken() { return localStorage.getItem(TOKEN_KEY); }
+  function _getEmail() { return localStorage.getItem(EMAIL_KEY); }
+  function _isLoggedIn() { return !!_getToken(); }
+
+  function openOrdersFlow() {
+    if (_isLoggedIn()) {
+      ZWCHOrders.open(_getEmail());
+    } else {
+      _resetAuthModal();
+      ZWCHModal.open('modal-auth');
+      setTimeout(() => document.getElementById('auth-email').focus(), 200);
+    }
+  }
+
+  function _resetAuthModal() {
+    document.getElementById('auth-step-1').classList.remove('hidden');
+    document.getElementById('auth-step-2').classList.add('hidden');
+    document.getElementById('auth-email').value = _getEmail() || '';
+    document.getElementById('auth-email-error').classList.add('hidden');
+    document.getElementById('auth-otp-error').classList.add('hidden');
+    _clearOtpInputs();
+  }
+
+  async function sendOtp(e) {
+    e.preventDefault();
+    const email = document.getElementById('auth-email').value.trim().toLowerCase();
+    if (!email) return false;
+
+    const errEl = document.getElementById('auth-email-error');
+    errEl.classList.add('hidden');
+    _setOtpBtnLoading(true);
+
+    try {
+      const res = await fetch(`${API}/api/auth/send-otp`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      const json = await res.json();
+
+      if (res.ok) {
+        _pendingEmail = email;
+        document.getElementById('auth-email-display').textContent = email;
+        document.getElementById('auth-step-1').classList.add('hidden');
+        document.getElementById('auth-step-2').classList.remove('hidden');
+        _initOtpInputs();
+        setTimeout(() => document.getElementById('otp-0').focus(), 100);
+      } else {
+        errEl.textContent = json.error || 'Error sending code. Try again.';
+        errEl.classList.remove('hidden');
+      }
+    } catch {
+      errEl.textContent = 'Network error. Please retry.';
+      errEl.classList.remove('hidden');
+    }
+    _setOtpBtnLoading(false);
+    return false;
+  }
+
+  async function verifyOtp(e) {
+    e.preventDefault();
+    const code = Array.from(document.querySelectorAll('.otp-digit')).map(i => i.value).join('');
+    const errEl = document.getElementById('auth-otp-error');
+    errEl.classList.add('hidden');
+
+    if (code.length < 6) {
+      errEl.textContent = 'Please enter all 6 digits.';
+      errEl.classList.remove('hidden');
+      return false;
+    }
+
+    _setVerifyBtnLoading(true);
+    try {
+      const res = await fetch(`${API}/api/auth/verify-otp`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: _pendingEmail, code }),
+      });
+      const json = await res.json();
+
+      if (res.ok && json.token) {
+        localStorage.setItem(TOKEN_KEY, json.token);
+        localStorage.setItem(EMAIL_KEY, json.email);
+        ZWCHModal.close('modal-auth');
+        ZWCHOrders.open(json.email);
+      } else {
+        errEl.textContent = json.error || 'Invalid code. Try again.';
+        errEl.classList.remove('hidden');
+        _clearOtpInputs();
+        setTimeout(() => document.getElementById('otp-0').focus(), 50);
+      }
+    } catch {
+      errEl.textContent = 'Network error. Please retry.';
+      errEl.classList.remove('hidden');
+    }
+    _setVerifyBtnLoading(false);
+    return false;
+  }
+
+  function backToStep1() {
+    document.getElementById('auth-step-2').classList.add('hidden');
+    document.getElementById('auth-step-1').classList.remove('hidden');
+    document.getElementById('auth-email-error').classList.add('hidden');
+  }
+
+  function logout() {
+    localStorage.removeItem(TOKEN_KEY);
+    ZWCHModal.close('modal-orders');
+  }
+
+  function _initOtpInputs() {
+    const inputs = document.querySelectorAll('.otp-digit');
+    inputs.forEach((inp, idx) => {
+      inp.addEventListener('input', e => {
+        const val = e.target.value.replace(/\D/g, '');
+        e.target.value = val.slice(-1);
+        e.target.classList.toggle('otp-filled', !!val);
+        if (val && idx < inputs.length - 1) inputs[idx + 1].focus();
+      });
+      inp.addEventListener('keydown', e => {
+        if (e.key === 'Backspace' && !inp.value && idx > 0) inputs[idx - 1].focus();
+      });
+      inp.addEventListener('paste', e => {
+        e.preventDefault();
+        const pasted = (e.clipboardData.getData('text') || '').replace(/\D/g, '').slice(0, 6);
+        pasted.split('').forEach((ch, i) => {
+          if (inputs[i]) { inputs[i].value = ch; inputs[i].classList.add('otp-filled'); }
+        });
+        const focusIdx = Math.min(pasted.length, 5);
+        if (inputs[focusIdx]) inputs[focusIdx].focus();
+      });
+    });
+  }
+
+  function _clearOtpInputs() {
+    document.querySelectorAll('.otp-digit').forEach(i => {
+      i.value = '';
+      i.classList.remove('otp-filled');
+    });
+  }
+
+  function _setOtpBtnLoading(l) {
+    document.getElementById('btn-otp-label').classList.toggle('hidden', l);
+    document.getElementById('btn-otp-loading').classList.toggle('hidden', !l);
+    document.getElementById('btn-send-otp').disabled = l;
+  }
+
+  function _setVerifyBtnLoading(l) {
+    document.getElementById('btn-verify-label').classList.toggle('hidden', l);
+    document.getElementById('btn-verify-loading').classList.toggle('hidden', !l);
+    document.getElementById('btn-verify-otp').disabled = l;
+  }
+
+  return { openOrdersFlow, sendOtp, verifyOtp, backToStep1, logout };
+})();
+
+// ── ZWCHOrders ────────────────────────────────────────────────────
+const ZWCHOrders = (() => {
+  async function open(email) {
+    document.getElementById('orders-email-display').textContent = email || '';
+    document.getElementById('orders-list').innerHTML = '<div class="orders-loading">Loading your orders...</div>';
+    ZWCHModal.open('modal-orders');
+
+    const token = localStorage.getItem(TOKEN_KEY);
+    try {
+      const res = await fetch(`${API}/api/user/orders`, {
+        headers: { 'Authorization': `Bearer ${token}` },
+      });
+
+      if (res.status === 401) {
+        localStorage.removeItem(TOKEN_KEY);
+        ZWCHModal.close('modal-orders');
+        ZWCHAuth.openOrdersFlow();
+        return;
+      }
+
+      const json = await res.json();
+      _renderOrders(json.data || []);
+    } catch {
+      document.getElementById('orders-list').innerHTML =
+        '<div class="orders-loading">Could not load orders. Please try again.</div>';
+    }
+  }
+
+  function _renderOrders(orders) {
+    const container = document.getElementById('orders-list');
+    if (!orders.length) {
+      container.innerHTML = '<div class="orders-empty">\ud83d\udce6 No orders yet.<br/><small>Your purchases will appear here after payment.</small></div>';
+      return;
+    }
+
+    container.innerHTML = orders.map(o => {
+      const date = new Date(o.created_at).toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' });
+      const amount = `\u20ac${(o.amount_cents / 100).toFixed(2)}`;
+      const links = o.links || [];
+
+      const keysHtml = links.length
+        ? links.map(link => `
+          <div class="order-card__key-wrap">
+            <span class="order-card__key" title="${_esc(link)}">${_esc(link)}</span>
+            <button class="btn-copy-key" onclick="ZWCHOrders.copyKey(this, '${_esc(link).replace(/'/g, "\\'")}')">📋 Copy</button>
+          </div>`).join('')
+        : '<div class="order-card__key-wrap"><span class="order-card__key" style="color:var(--text-muted);">Key will be sent to your email.</span></div>';
+
+      return `
+        <div class="order-card">
+          <div class="order-card__header">
+            <div>
+              <div class="order-card__name">${_esc(o.product_name)}</div>
+              <div class="order-card__meta">Order #${o.order_id} &nbsp;\u00b7&nbsp; ${date}</div>
+            </div>
+            <div class="order-card__amount">${amount} ${(o.currency || 'EUR').toUpperCase()}</div>
+          </div>
+          ${keysHtml}
+        </div>`;
+    }).join('');
+  }
+
+  function copyKey(btn, text) {
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = '\u2705 Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = '\ud83d\udccb Copy'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+
+  function _esc(str) {
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  return { open, copyKey };
+})();
