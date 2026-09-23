@@ -450,17 +450,21 @@ const ZWCHShop = (() => {
       if (isLow)  { stockClass = 'product-card__stock--low'; stockText = `Only ${stock} left`; }
       if (isOut)  { stockClass = 'product-card__stock--out'; stockText = 'Sold Out'; }
 
+      // Custom Artwork banner mapping based on product ID or general fallback
+      // Since LO provided a specific Discord CDN image, we use it here.
+      const imageUrl = 'https://cdn.discordapp.com/attachments/1491382556472508498/1552318456408571965/18_Months.png?ex=6ab52cb8&is=6ab3db38&hm=885658cd05f26b865d25edc55a0aef79240eab4d8c02b88025fa3f6e48f2ee06&';
+
       return `
-        <div class="product-card">
-          <div class="product-card__name">${_esc(p.name)}</div>
-          <div class="product-card__desc">${_esc(p.description || '')}</div>
-          <div class="product-card__price">${price} <span style="font-size: 0.8em; color: var(--text-muted); font-weight: 400;">one-time</span></div>
-          <span class="product-card__stock ${stockClass}">${stockText}</span>
-          <button class="btn btn-primary product-card__btn"
-            ${isOut ? 'disabled' : ''}
-            onclick="ZWCHShop.openBuyModal(${p.id})">
-            ${isOut ? 'Sold Out' : 'Purchase'}
-          </button>
+        <div class="product-card-clarity" onclick="window.location.href='product.html?id=${p.id}'">
+          <div class="card-clarity-image" style="background-image: url('${imageUrl}');">
+            <span class="card-clarity-badge ${stockClass}">${stockText}</span>
+          </div>
+          <div class="card-clarity-body">
+            <h3 class="card-clarity-title">${_esc(p.name)}</h3>
+            <div class="card-clarity-footer">
+              <span class="card-clarity-price">${price}</span>
+            </div>
+          </div>
         </div>`;
     }).join('');
   }

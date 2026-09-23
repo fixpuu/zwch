@@ -260,21 +260,20 @@
 
   <!-- NAVBAR -->
   <nav class="navbar" id="navbar">
-    <div class="nav-inner container">
-      <a href="#" class="nav-logo">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
         <span class="logo-zw">ZW</span><span class="logo-ch">CH</span>
-        <span class="logo-shop">Shop</span>
       </a>
-      <div class="nav-actions">
-        <button class="btn btn-nav btn-nav-orders" id="btn-my-orders" onclick="ZWCHAuth.openOrdersFlow()">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          My Orders
-        </button>
-        <a href="https://t.me/zwchshope_bot" class="btn btn-nav" target="_blank" rel="noopener" onclick="trackBotClick('navbar')">
-          <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.34 14.082l-2.95-.924c-.642-.204-.656-.642.136-.953l11.57-4.461c.536-.194 1.006.131.798.477z"/></svg>
-          Buy Now
-        </a>
+      <div class="nav-links">
+        <a href="/" class="nav-link active">Home</a>
+        <a href="/#shop" class="nav-link">Products</a>
+        <a href="/#status" class="nav-link">Status</a>
+        <a href="/#reviews" class="nav-link">Reviews</a>
+        <button class="nav-link nav-orders-btn" onclick="ZWCHAuth.openOrdersFlow()">My Orders</button>
       </div>
+      <a href="https://t.me/zwchshope_bot" class="nav-action" target="_blank" rel="noopener" onclick="trackBotClick('navbar')">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.34 14.082l-2.95-.924c-.642-.204-.656-.642.136-.953l11.57-4.461c.536-.194 1.006.131.798.477z"/></svg>
+      </a>
     </div>
   </nav>
 
