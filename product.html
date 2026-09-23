@@ -368,10 +368,182 @@
     });
     
     function openProductModal() {
-       if(currentPageProductId && window.ZWCHShop) {
+       if(currentPageProductId && typeof ZWCHShop !== 'undefined') {
            ZWCHShop.openBuyModal(currentPageProductId);
        }
     }
   </script>
 
+<footer class="footer" id="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="#" class="nav-logo">
+            <span class="logo-zw">ZW</span><span class="logo-ch">CH</span>
+            <span class="logo-shop">Shop</span>
+          </a>
+          <p>Official Digital Licenses &amp; Subscriptions.<br/>Instant delivery, verified products, zero surprises.</p>
+          <a href="https://t.me/zwchshope_bot" class="btn btn-primary" target="_blank" rel="noopener" onclick="trackBotClick('footer')">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.34 14.082l-2.95-.924c-.642-.204-.656-.642.136-.953l11.57-4.461c.536-.194 1.006.131.798.477z"/></svg>
+            Buy Now on Telegram
+          </a>
+        </div>
 
+        <div class="footer-links">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="https://t.me/zwchshope_bot" target="_blank" rel="noopener">24/7 Telegram Support</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#how-it-works">How It Works</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="./terms.html">Terms of Service</a></li>
+            <li><a href="./privacy.html">Privacy Policy</a></li>
+            <li><a href="https://t.me/zwchshope_bot" target="_blank" rel="noopener">Contact Support</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 ZWCH Shop. All rights reserved. Digital licenses distributed through authorized channels.</p>
+        <p>Support: <a href="https://t.me/zwchshope_bot" target="_blank" rel="noopener">@zwchshope_bot</a> &nbsp;&middot;&nbsp; <a href="https://zwch.store/">zwch.store</a></p>
+        <p style="font-size:0.75rem; opacity:0.4; margin-top:8px;">ZWCH &bull; ZWCH Shop &bull; Buy Gemini Pro cheap &bull; Gemini Pro link &bull; Google Gemini 18 months &bull; AI subscription deal</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./script.js"></script>
+  <script>
+    (function() {
+      console.log("[Tracker] Inizializzazione...");
+      try {
+        if (!sessionStorage.getItem('zwch_visited')) {
+          fetch('https://bot.zwch.store/api/track_visitor', { method: 'POST' })
+            .then(res => {
+              if (res.ok) {
+                sessionStorage.setItem('zwch_visited', 'true');
+                console.log("[Tracker] Visita registrata con successo.");
+              } else {
+                console.error("[Tracker] Errore risposta API:", res.status);
+              }
+            })
+            .catch(err => console.error("[Tracker] Errore fetch:", err));
+        } else {
+          console.log("[Tracker] Visita già registrata in questa sessione.");
+        }
+      } catch(e) {
+        console.error("[Tracker] Errore script:", e);
+      }
+    })();
+  </script>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- MODAL: BUY (email input before Stripe redirect)         -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="modal-buy" role="dialog" aria-modal="true" aria-labelledby="modal-buy-title">
+    <div class="modal-box">
+      <button class="modal-close" onclick="ZWCHModal.close('modal-buy')" aria-label="Close">&times;</button>
+      <div class="modal-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="32" height="32"><rect x="2" y="5" width="20" height="14" rx="2" ry="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+      </div>
+      <h2 class="modal-title" id="modal-buy-title">Complete your purchase</h2>
+      <p class="modal-sub" id="modal-buy-product-name">Loading product...</p>
+      <div class="modal-price-row">
+        <span class="modal-price" id="modal-buy-price">&mdash;</span>
+        <span class="modal-price-label">one-time payment</span>
+      </div>
+      <form id="form-buy" onsubmit="return ZWCHShop.submitBuy(event)" novalidate>
+        <label class="modal-label" for="buy-email">Your email address</label>
+        <input class="modal-input" type="email" id="buy-email" name="email"
+               placeholder="you@example.com" autocomplete="email" required />
+        <p class="modal-input-hint">Your key and order receipt will be sent here.</p>
+        <button class="btn btn-primary modal-submit" id="btn-buy-submit" type="submit">
+          <span id="btn-buy-label">Pay with Stripe &#8594;</span>
+          <span id="btn-buy-loading" class="hidden">Processing...</span>
+        </button>
+      </form>
+      <p class="modal-footer-note">Secure payment by Stripe. ZWCH never stores your card details.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- MODAL: AUTH (OTP 2-step login)                          -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="modal-auth" role="dialog" aria-modal="true" aria-labelledby="modal-auth-title">
+    <div class="modal-box">
+      <button class="modal-close" onclick="ZWCHModal.close('modal-auth')" aria-label="Close">&times;</button>
+
+      <!-- Step 1: email -->
+      <div id="auth-step-1">
+        <div class="modal-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="32" height="32"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <h2 class="modal-title" id="modal-auth-title">Sign in to ZWCH</h2>
+        <p class="modal-sub">Enter your email and we'll send you a one-time code. No password needed.</p>
+        <form id="form-auth-email" onsubmit="return ZWCHAuth.sendOtp(event)" novalidate>
+          <label class="modal-label" for="auth-email">Email address</label>
+          <input class="modal-input" type="email" id="auth-email" name="email"
+                 placeholder="you@example.com" autocomplete="email" required />
+          <button class="btn btn-primary modal-submit" id="btn-send-otp" type="submit">
+            <span id="btn-otp-label">Send Code &#8594;</span>
+            <span id="btn-otp-loading" class="hidden">Sending...</span>
+          </button>
+        </form>
+        <p id="auth-email-error" class="modal-error hidden"></p>
+      </div>
+
+      <!-- Step 2: OTP -->
+      <div id="auth-step-2" class="hidden">
+        <div class="modal-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="32" height="32"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <h2 class="modal-title">Enter your code</h2>
+        <p class="modal-sub">We sent a 6-digit code to <strong id="auth-email-display"></strong>.<br/>Valid for 10 minutes.</p>
+        <form id="form-auth-otp" onsubmit="return ZWCHAuth.verifyOtp(event)" novalidate>
+          <div class="otp-inputs" id="otp-inputs">
+            <input class="otp-digit" type="text" inputmode="numeric" maxlength="1" id="otp-0" aria-label="Digit 1" />
+            <input class="otp-digit" type="text" inputmode="numeric" maxlength="1" id="otp-1" aria-label="Digit 2" />
+            <input class="otp-digit" type="text" inputmode="numeric" maxlength="1" id="otp-2" aria-label="Digit 3" />
+            <input class="otp-digit" type="text" inputmode="numeric" maxlength="1" id="otp-3" aria-label="Digit 4" />
+            <input class="otp-digit" type="text" inputmode="numeric" maxlength="1" id="otp-4" aria-label="Digit 5" />
+            <input class="otp-digit" type="text" inputmode="numeric" maxlength="1" id="otp-5" aria-label="Digit 6" />
+          </div>
+          <button class="btn btn-primary modal-submit" id="btn-verify-otp" type="submit">
+            <span id="btn-verify-label">Verify &amp; Sign In</span>
+            <span id="btn-verify-loading" class="hidden">Verifying...</span>
+          </button>
+        </form>
+        <p id="auth-otp-error" class="modal-error hidden"></p>
+        <button class="modal-link-btn" onclick="ZWCHAuth.backToStep1()">&#8592; Use a different email</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- MODAL: MY ORDERS (dashboard)                            -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="modal-orders" role="dialog" aria-modal="true" aria-labelledby="modal-orders-title">
+    <div class="modal-box modal-box--wide">
+      <button class="modal-close" onclick="ZWCHModal.close('modal-orders')" aria-label="Close">&times;</button>
+      <div class="orders-header">
+        <div class="modal-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="32" height="32"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div>
+          <h2 class="modal-title" id="modal-orders-title">My Orders</h2>
+          <p class="modal-sub" id="orders-email-display" style="margin:0;"></p>
+        </div>
+        <button class="modal-link-btn orders-logout" onclick="ZWCHAuth.logout()">Sign out</button>
+      </div>
+      <div id="orders-list">
+        <div class="orders-loading">Loading your orders...</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
