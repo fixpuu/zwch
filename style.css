@@ -1997,3 +1997,198 @@ a:hover { opacity: 0.82; }
     flex-direction: column;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   ADVANCED MOBILE & TOUCH OPTIMIZATIONS
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  body {
+    font-size: 15px;
+  }
+
+  .container {
+    padding: 0 16px;
+  }
+
+  /* Sticky Navigation Bar Mobile Improvements */
+  .navbar {
+    top: 12px;
+    width: calc(100% - 24px);
+    padding: 0 16px;
+    border-radius: 30px;
+  }
+
+  .nav-inner {
+    height: 48px;
+  }
+
+  .nav-logo {
+    font-size: 1.1rem;
+  }
+
+  .btn-nav-orders {
+    padding: 6px 12px;
+    font-size: 0.78rem;
+    border-radius: 20px;
+  }
+
+  /* Hero Section Mobile Polish */
+  .hero {
+    padding: 90px 0 50px;
+    min-height: auto;
+  }
+
+  .hero-inner {
+    gap: 16px;
+  }
+
+  .urgency-badge {
+    font-size: 0.78rem;
+    padding: 5px 12px;
+  }
+
+  .hero-headline {
+    font-size: 2.1rem;
+    line-height: 1.18;
+  }
+
+  .price-hero {
+    font-size: 1.25rem;
+  }
+
+  .hero-sub {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    padding: 0 4px;
+  }
+
+  /* Buttons & Touch Target Sizing (minimum 44px height for mobile usability) */
+  .btn {
+    min-height: 48px;
+    padding: 12px 20px;
+    font-size: 0.95rem;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .btn-lg {
+    min-height: 52px;
+    font-size: 1rem;
+  }
+
+  /* Mobile Grid Sizing for Shop & Features */
+  .shop-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 24px;
+  }
+
+  .product-card-clarity {
+    border-radius: 14px;
+  }
+
+  .card-clarity-image {
+    height: 160px;
+  }
+
+  .card-clarity-body {
+    padding: 16px;
+    gap: 10px;
+  }
+
+  .card-clarity-title {
+    font-size: 1.05rem;
+  }
+
+  .card-clarity-price {
+    font-size: 1.3rem;
+  }
+
+  /* Reviews & Testimonials Mobile Layout */
+  .reviews-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .review-card {
+    padding: 18px;
+    border-radius: 14px;
+  }
+
+  /* Modal Bottom Sheet / Mobile Native Experience */
+  .modal-overlay {
+    padding: 0;
+    align-items: flex-end;
+  }
+
+  .modal-box {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+    padding: 32px 20px 32px;
+    max-height: 90vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    transform: translateY(100%);
+  }
+
+  .modal-overlay.active .modal-box {
+    transform: translateY(0);
+  }
+
+  .modal-close {
+    top: 14px;
+    right: 14px;
+    width: 36px;
+    height: 36px;
+  }
+
+  .modal-title {
+    font-size: 1.25rem;
+  }
+
+  .modal-price {
+    font-size: 1.7rem;
+  }
+
+  .modal-input {
+    font-size: 16px; /* Prevents iOS auto-zoom on focus */
+    min-height: 48px;
+    padding: 12px 14px;
+  }
+
+  .otp-digit {
+    width: 44px;
+    height: 52px;
+    font-size: 1.4rem;
+  }
+
+  .otp-inputs {
+    gap: 6px;
+  }
+
+  /* Sticky Floating Mobile Buy CTA */
+  .sticky-cta {
+    bottom: 16px;
+    right: 16px;
+    left: 16px;
+    justify-content: center;
+    padding: 14px 20px;
+    font-size: 0.95rem;
+    border-radius: 50px;
+  }
+}
+
+@media (max-width: 400px) {
+  .hero-headline {
+    font-size: 1.85rem;
+  }
+
+  .otp-digit {
+    width: 38px;
+    height: 48px;
+    font-size: 1.2rem;
+  }
+}
+

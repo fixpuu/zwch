@@ -240,6 +240,15 @@
     .hidden { display: none !important; }
 
     /* Confetti particles */
+    @media (max-width: 540px) {
+      .card { padding: 32px 20px; border-radius: 20px; }
+      h1 { font-size: 1.6rem; }
+      .actions { flex-direction: column; width: 100%; }
+      .btn { width: 100%; justify-content: center; min-height: 48px; }
+      .key-box { flex-direction: column; align-items: stretch; gap: 8px; }
+      .btn-copy { text-align: center; }
+    }
+
     .confetti {
       position: fixed; inset: 0; pointer-events: none; z-index: 0;
       overflow: hidden;
