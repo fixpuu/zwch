@@ -446,20 +446,20 @@ const ZWCHShop = (() => {
       const isLow = !isOut && stock <= 3;
 
       let stockClass = 'product-card__stock--available';
-      let stockText = `\u2705 ${stock} in stock`;
-      if (isLow)  { stockClass = 'product-card__stock--low'; stockText = `\u26a1 Only ${stock} left`; }
-      if (isOut)  { stockClass = 'product-card__stock--out'; stockText = '\u274c Sold out'; }
+      let stockText = `${stock} in stock`;
+      if (isLow)  { stockClass = 'product-card__stock--low'; stockText = `Only ${stock} left`; }
+      if (isOut)  { stockClass = 'product-card__stock--out'; stockText = 'Sold Out'; }
 
       return `
         <div class="product-card">
           <div class="product-card__name">${_esc(p.name)}</div>
           <div class="product-card__desc">${_esc(p.description || '')}</div>
-          <div class="product-card__price">${price}</div>
+          <div class="product-card__price">${price} <span style="font-size: 0.8em; color: var(--text-muted); font-weight: 400;">one-time</span></div>
           <span class="product-card__stock ${stockClass}">${stockText}</span>
           <button class="btn btn-primary product-card__btn"
             ${isOut ? 'disabled' : ''}
             onclick="ZWCHShop.openBuyModal(${p.id})">
-            ${isOut ? '\ud83d\udd12 Sold Out' : 'Buy Now \u2014 ' + price}
+            ${isOut ? 'Sold Out' : 'Purchase'}
           </button>
         </div>`;
     }).join('');
@@ -720,7 +720,7 @@ const ZWCHOrders = (() => {
   function _renderOrders(orders) {
     const container = document.getElementById('orders-list');
     if (!orders.length) {
-      container.innerHTML = '<div class="orders-empty">\ud83d\udce6 No orders yet.<br/><small>Your purchases will appear here after payment.</small></div>';
+      container.innerHTML = '<div class="orders-empty">No orders yet.<br/><small>Your purchases will appear here after payment.</small></div>';
       return;
     }
 
@@ -753,9 +753,9 @@ const ZWCHOrders = (() => {
 
   function copyKey(btn, text) {
     navigator.clipboard.writeText(text).then(() => {
-      btn.textContent = '\u2705 Copied!';
+      btn.textContent = 'Copied!';
       btn.classList.add('copied');
-      setTimeout(() => { btn.textContent = '\ud83d\udccb Copy'; btn.classList.remove('copied'); }, 2000);
+      setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
     });
   }
 

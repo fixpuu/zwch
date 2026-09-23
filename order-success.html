@@ -279,7 +279,9 @@
 
     <!-- ERROR -->
     <div id="error-state" class="hidden">
-      <div style="font-size:48px;margin-bottom:16px;">⚠️</div>
+      <div style="font-size:48px;margin-bottom:16px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#ff6b6b" stroke-width="2" width="64" height="64"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </div>
       <h1 style="background:none;-webkit-text-fill-color:#ff6b6b;color:#ff6b6b;font-size:1.5rem;">Oops!</h1>
       <p class="sub" id="error-msg">We couldn't find your order. If you just paid, don't worry — your key was sent to your email!</p>
       <div class="actions">
@@ -321,22 +323,22 @@
 
       <!-- Key or email note -->
       <div id="key-section" class="key-section hidden">
-        <div class="key-label">🔑 Your Activation Key</div>
+        <div class="key-label">Your Activation Key</div>
         <div class="key-box">
           <span class="key-text" id="key-text"></span>
-          <button class="btn-copy" id="btn-copy-key" onclick="copyKey()">📋 Copy</button>
+          <button class="btn-copy" id="btn-copy-key" onclick="copyKey()">Copy</button>
         </div>
       </div>
 
       <div id="email-note-section" class="email-note hidden">
-        <strong>✉️ Check your inbox!</strong>
+        <strong>Check your inbox!</strong>
         Your activation key has been sent to <strong id="email-display"></strong>.
         The email contains your key and activation instructions.
       </div>
 
       <div class="actions">
-        <button class="btn btn-primary" onclick="openOrders()">
-          📋 View My Orders
+        <button class="btn-primary btn" onclick="openOrders()">
+          View My Orders
         </button>
         <a href="/" class="btn btn-ghost">← Back to Shop</a>
       </div>
@@ -406,9 +408,9 @@
       const text = document.getElementById('key-text').textContent;
       navigator.clipboard.writeText(text).then(() => {
         const btn = document.getElementById('btn-copy-key');
-        btn.textContent = '✅ Copied!';
+        btn.textContent = 'Copied!';
         btn.classList.add('copied');
-        setTimeout(() => { btn.textContent = '📋 Copy'; btn.classList.remove('copied'); }, 2500);
+        setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2500);
       });
     }
 
