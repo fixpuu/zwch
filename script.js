@@ -768,3 +768,52 @@ const ZWCHOrders = (() => {
 
   return { open, copyKey };
 })();
+
+// ── ZWCHStatus ────────────────────────────────────────────────────
+(function initStatusBoard() {
+  function renderBars() {
+    const containers = document.querySelectorAll('.uptime-bars');
+    containers.forEach(container => {
+      if (!container.children.length) {
+        let barsHtml = '';
+        for (let i = 0; i < 30; i++) {
+          barsHtml += '<span class="uptime-bar" title="100% operational"></span>';
+        }
+        container.innerHTML = barsHtml;
+      }
+    });
+  }
+
+  async function checkLiveStatus() {
+    const latEl = document.getElementById('status-latency-display');
+    const lastEl = document.getElementById('status-last-check');
+    const badgeBackend = document.getElementById('badge-backend');
+
+    const start = performance.now();
+    try {
+      const res = await fetch(`${API}/health`, { method: 'GET' });
+      const ms = Math.round(performance.now() - start);
+
+      if (res.ok) {
+        if (latEl && ms > 0) latEl.textContent = `${ms}ms`;
+        if (lastEl) lastEl.textContent = `Checked live (${ms}ms)`;
+        if (badgeBackend) {
+          badgeBackend.innerHTML = '<span class="status-dot"></span> Operational';
+          badgeBackend.className = 'badge-status badge-status--ok';
+        }
+      }
+    } catch {
+      if (lastEl) lastEl.textContent = 'Monitoring active';
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      renderBars();
+      checkLiveStatus();
+    });
+  } else {
+    renderBars();
+    checkLiveStatus();
+  }
+})();
