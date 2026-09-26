@@ -817,3 +817,87 @@ const ZWCHOrders = (() => {
     checkLiveStatus();
   }
 })();
+
+// ── Navbar Active State & ScrollSpy ─────────────────
+(function initNavScrollSpy() {
+  const navLinks = document.querySelectorAll('.nav-links .nav-link');
+  if (!navLinks.length) return;
+
+  const pathname = window.location.pathname;
+
+  // Subpage active state detection
+  if (pathname.includes('status.html')) {
+    navLinks.forEach(l => {
+      const href = l.getAttribute('href') || '';
+      l.classList.toggle('active', href.includes('status.html'));
+    });
+    return;
+  }
+
+  if (pathname.includes('product.html')) {
+    navLinks.forEach(l => {
+      const href = l.getAttribute('href') || '';
+      l.classList.toggle('active', href.includes('shop'));
+    });
+    return;
+  }
+
+  // On main landing page (index.html):
+  const shopEl = document.getElementById('shop');
+  const reviewsEl = document.getElementById('reviews');
+
+  if (!shopEl) return;
+
+  // Click handler: immediate highlight & smooth scroll
+  navLinks.forEach(link => {
+    const href = link.getAttribute('href') || '';
+    if (href.startsWith('#')) {
+      link.addEventListener('click', function(e) {
+        const targetId = href.slice(1);
+        const targetEl = document.getElementById(targetId);
+        if (targetEl) {
+          e.preventDefault();
+          targetEl.scrollIntoView({ behavior: 'smooth' });
+          navLinks.forEach(l => l.classList.remove('active'));
+          this.classList.add('active');
+        }
+      });
+    }
+  });
+
+  // Dynamic ScrollSpy based on viewport scroll position
+  let ticking = false;
+  function updateActiveOnScroll() {
+    const scrollY = window.scrollY;
+    const shopTop = shopEl ? shopEl.offsetTop - 200 : Infinity;
+    const reviewsTop = reviewsEl ? reviewsEl.offsetTop - 240 : Infinity;
+
+    let activeHref = '#hero';
+    if (scrollY >= reviewsTop) {
+      activeHref = '#reviews';
+    } else if (scrollY >= shopTop) {
+      activeHref = '#shop';
+    } else {
+      activeHref = '#hero';
+    }
+
+    navLinks.forEach(link => {
+      const href = link.getAttribute('href') || '';
+      if (href.startsWith('#') || href === '/') {
+        const matches = href === activeHref || (activeHref === '#hero' && (href === '/' || href === '#hero'));
+        link.classList.toggle('active', matches);
+      }
+    });
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(updateActiveOnScroll);
+      ticking = true;
+    }
+  }, { passive: true });
+
+  setTimeout(updateActiveOnScroll, 100);
+})();
+
