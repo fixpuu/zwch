@@ -451,8 +451,7 @@ const ZWCHShop = (() => {
       if (isOut)  { stockClass = 'product-card__stock--out'; stockText = 'Sold Out'; }
 
       // Custom Artwork banner mapping based on product ID or general fallback
-      // Since LO provided a specific Discord CDN image, we use it here.
-      const imageUrl = 'https://cdn.discordapp.com/attachments/1491382556472508498/1552318456408571965/18_Months.png?ex=6ab52cb8&is=6ab3db38&hm=885658cd05f26b865d25edc55a0aef79240eab4d8c02b88025fa3f6e48f2ee06&';
+      const imageUrl = './18_Months.png';
 
       return `
         <div class="product-card-clarity" onclick="window.location.href='product.html?id=${p.id}'">
