@@ -338,19 +338,8 @@ window.trackBotClick = trackBotClick;
   }, { passive: true });
 })();
 
-// ── Sticky CTA hide when footer visible ───────────────
-(function initStickyHide() {
-  const sticky = document.getElementById('sticky-cta');
-  const footer = document.getElementById('footer');
-  if (!sticky || !footer) return;
-
-  const observer = new IntersectionObserver(([entry]) => {
-    sticky.style.opacity = entry.isIntersecting ? '0' : '1';
-    sticky.style.pointerEvents = entry.isIntersecting ? 'none' : 'auto';
-  }, { threshold: 0.1 });
-
-  observer.observe(footer);
-})();
+// ── Persistent CTA Bar (Always present on PC & Mobile) ─
+// Sticky bar remains visible independently of scroll position.
 
 // ── Time on page tracking ─────────────────────────────
 (function initTimeTracking() {
