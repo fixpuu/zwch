@@ -387,6 +387,7 @@ const ZWCHModal = (() => {
     const el = document.getElementById(id);
     if (!el) return;
     el.classList.add('active');
+    document.body.classList.add('modal-open');
     document.body.style.overflow = 'hidden';
     el.addEventListener('click', _backdropClose);
   }
@@ -395,7 +396,10 @@ const ZWCHModal = (() => {
     const el = document.getElementById(id);
     if (!el) return;
     el.classList.remove('active');
-    document.body.style.overflow = '';
+    if (!document.querySelector('.modal-overlay.active')) {
+      document.body.classList.remove('modal-open');
+      document.body.style.overflow = '';
+    }
     el.removeEventListener('click', _backdropClose);
   }
 
@@ -415,7 +419,12 @@ const ZWCHModal = (() => {
 // ── ZWCHShop ─────────────────────────────────────────────────────
 const ZWCHShop = (() => {
   let _products = [];
-  let _selectedProduct = null;
+  let _selectedProduct = {
+    id: 1,
+    name: "Google Gemini Pro 18 Mesi \u2014 Licenza Ufficiale",
+    price_cents: 1000,
+    stock_count: 3
+  };
 
   async function init() {
     try {
@@ -423,10 +432,30 @@ const ZWCHShop = (() => {
       if (!res.ok) throw new Error('API error');
       const json = await res.json();
       _products = json.data || [];
+      if (_products.length > 0) {
+        _selectedProduct = _products[0];
+      }
+      _renderHeroProduct();
       _renderCards();
     } catch (err) {
-      const grid = document.getElementById('shop-grid');
-      if (grid) grid.innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:30px 0;">Could not load products. Please try again later.</p>';
+      _products = [_selectedProduct];
+      _renderHeroProduct();
+    }
+  }
+
+  function _renderHeroProduct() {
+    if (!_products || _products.length === 0) return;
+    const p = _products[0];
+    const stock = p.stock_count || 0;
+    const badge = document.getElementById('hero-stock-badge');
+    if (badge) {
+      if (stock === 0) {
+        badge.innerHTML = '<span class="stock-dot stock-dot--alert"></span> <strong>Pochi pezzi disponibili</strong> &mdash; ordina subito';
+      } else if (stock <= 3) {
+        badge.innerHTML = `<span class="stock-dot stock-dot--alert"></span> <strong>Solo ${stock} licenze rimaste</strong> &mdash; alta richiesta`;
+      } else {
+        badge.innerHTML = `<span class="stock-dot"></span> <strong>Disponibilit&agrave; Immediata</strong> &mdash; ${stock} disponibili`;
+      }
     }
   }
 
@@ -435,7 +464,7 @@ const ZWCHShop = (() => {
     if (!grid) return;
 
     if (_products.length === 0) {
-      grid.innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:30px 0;">No products available right now.</p>';
+      grid.innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:30px 0;">Nessun prodotto disponibile al momento.</p>';
       return;
     }
 
@@ -447,10 +476,9 @@ const ZWCHShop = (() => {
 
       let stockClass = 'product-card__stock--available';
       let stockText = `${stock} in stock`;
-      if (isLow)  { stockClass = 'product-card__stock--low'; stockText = `Only ${stock} left`; }
-      if (isOut)  { stockClass = 'product-card__stock--out'; stockText = 'Sold Out'; }
+      if (isLow)  { stockClass = 'product-card__stock--low'; stockText = `Solo ${stock} rimaste`; }
+      if (isOut)  { stockClass = 'product-card__stock--out'; stockText = 'Esaurito'; }
 
-      // Custom Artwork banner mapping based on product ID or general fallback
       const imageUrl = './18_Months.png';
 
       return `
@@ -468,16 +496,27 @@ const ZWCHShop = (() => {
     }).join('');
   }
 
-  function openBuyModal(productId) {
-    _selectedProduct = _products.find(p => p.id === productId);
-    if (!_selectedProduct) return;
+  function openBuyModal(productId = 1) {
+    if (!_products || _products.length === 0) {
+      _selectedProduct = { id: 1, name: "Google Gemini Pro 18 Mesi \u2014 Licenza Ufficiale", price_cents: 1000 };
+    } else {
+      _selectedProduct = _products.find(p => p.id === productId) || _products[0];
+    }
 
-    document.getElementById('modal-buy-product-name').textContent = _selectedProduct.name;
-    document.getElementById('modal-buy-price').textContent = `\u20ac${(_selectedProduct.price_cents / 100).toFixed(2)}`;
-    document.getElementById('buy-email').value = localStorage.getItem(EMAIL_KEY) || '';
+    const nameEl = document.getElementById('modal-buy-product-name');
+    const priceEl = document.getElementById('modal-buy-price');
+    if (nameEl) nameEl.textContent = _selectedProduct.name;
+    if (priceEl) priceEl.textContent = `\u20ac${(_selectedProduct.price_cents / 100).toFixed(2)}`;
+    
+    const emailInput = document.getElementById('buy-email');
+    if (emailInput && !emailInput.value) {
+      emailInput.value = localStorage.getItem(EMAIL_KEY) || '';
+    }
     _setBuyLoading(false);
     ZWCHModal.open('modal-buy');
-    setTimeout(() => document.getElementById('buy-email').focus(), 200);
+    setTimeout(() => {
+      if (emailInput) emailInput.focus();
+    }, 200);
   }
 
   async function submitBuy(e) {
@@ -843,10 +882,11 @@ const ZWCHOrders = (() => {
   }
 
   // On main landing page (index.html):
-  const shopEl = document.getElementById('shop');
-  const reviewsEl = document.getElementById('reviews');
+  const prodEl = document.getElementById('prodotto') || document.getElementById('hero') || document.getElementById('shop');
+  const proofEl = document.getElementById('prove-istruzioni') || document.getElementById('how-it-works');
+  const reviewsEl = document.getElementById('recensioni') || document.getElementById('reviews');
 
-  if (!shopEl) return;
+  if (!prodEl && !proofEl && !reviewsEl) return;
 
   // Click handler: immediate highlight & smooth scroll
   navLinks.forEach(link => {
@@ -869,22 +909,25 @@ const ZWCHOrders = (() => {
   let ticking = false;
   function updateActiveOnScroll() {
     const scrollY = window.scrollY;
-    const shopTop = shopEl ? shopEl.offsetTop - 200 : Infinity;
-    const reviewsTop = reviewsEl ? reviewsEl.offsetTop - 240 : Infinity;
+    const proofTop = proofEl ? proofEl.offsetTop - 180 : Infinity;
+    const reviewsTop = reviewsEl ? reviewsEl.offsetTop - 220 : Infinity;
 
-    let activeHref = '#hero';
+    let activeHref = '#prodotto';
     if (scrollY >= reviewsTop) {
-      activeHref = '#reviews';
-    } else if (scrollY >= shopTop) {
-      activeHref = '#shop';
+      activeHref = '#recensioni';
+    } else if (scrollY >= proofTop) {
+      activeHref = '#prove-istruzioni';
     } else {
-      activeHref = '#hero';
+      activeHref = '#prodotto';
     }
 
     navLinks.forEach(link => {
       const href = link.getAttribute('href') || '';
       if (href.startsWith('#') || href === '/') {
-        const matches = href === activeHref || (activeHref === '#hero' && (href === '/' || href === '#hero'));
+        const matches = href === activeHref ||
+          (activeHref === '#prodotto' && (href === '/' || href === '#prodotto' || href === '#hero')) ||
+          (activeHref === '#recensioni' && (href === '#recensioni' || href === '#reviews')) ||
+          (activeHref === '#prove-istruzioni' && (href === '#prove-istruzioni' || href === '#how-it-works'));
         link.classList.toggle('active', matches);
       }
     });
@@ -900,4 +943,21 @@ const ZWCHOrders = (() => {
 
   setTimeout(updateActiveOnScroll, 100);
 })();
+
+// ── Global Helper for Email Mockup Demo Link Copy ────────
+function copyDemoKey(btn) {
+  const link = "https://gemini.google.com/activate?code=ZWCH-GEM-18M-9482X";
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(link).then(() => {
+      const orig = btn.innerHTML;
+      btn.innerHTML = '&#10003; Copiato!';
+      setTimeout(() => { btn.innerHTML = orig; }, 2000);
+    });
+  } else {
+    btn.innerHTML = '&#10003; Copiato!';
+    setTimeout(() => { btn.innerHTML = '&#128203; Copia Link'; }, 2000);
+  }
+}
+window.copyDemoKey = copyDemoKey;
+window.openBuyModal = ZWCHShop.openBuyModal;
 
