@@ -222,7 +222,7 @@
   <!-- ===== GOOGLE FONTS ===== -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
   <!-- ===== GOOGLE ANALYTICS 4 ===== -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
@@ -249,515 +249,432 @@
 </head>
 <body>
 
-  <!-- GLOBAL PARTICLES CANVAS (fixed, behind everything) -->
-  <canvas id="particles-canvas" aria-hidden="true"></canvas>
+  <!-- AMBIENT GLOW BLOBS (from pixel-perfect-pix) -->
+  <div aria-hidden="true" class="blob blob-1"></div>
+  <div aria-hidden="true" class="blob blob-2"></div>
+  <div aria-hidden="true" class="blob blob-3"></div>
 
-  <!-- FLOATING STICKY CTA (Mobile-First High Conversion) -->
-  <div id="sticky-cta" class="sticky-mobile-bar" aria-label="Acquisto Rapido">
-    <div class="sticky-mobile-info">
-      <span class="sticky-mobile-badge">18 Mesi</span>
-      <span class="sticky-mobile-price">&#8364;10</span>
-      <span class="sticky-mobile-save">-97%</span>
+  <!-- FLOATING MOBILE STICKY CTA (Mobile Glass Bar) -->
+  <div id="sticky-cta" class="mobile-sticky-bottom-bar glass" aria-label="Acquisto Rapido">
+    <div class="sticky-left-info">
+      <span class="sticky-badge">18 Mesi</span>
+      <span class="sticky-price-text">&#8364;10</span>
+      <span class="sticky-save-pill">-97%</span>
     </div>
-    <button class="btn btn-primary sticky-mobile-btn" onclick="ZWCHShop.openBuyModal(1)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+    <button class="btn-glow" onclick="ZWCHShop.openBuyModal(1)">
       <span>Acquista Ora</span>
     </button>
   </div>
 
-  <!-- NAVBAR -->
-  <nav class="navbar" id="navbar">
-    <div class="nav-inner">
-      <a href="/" class="nav-logo">
-        <span class="logo-zw">ZW</span><span class="logo-ch">CH</span>
+  <!-- NAVBAR (Glass Navigation) -->
+  <header class="navbar-glass-wrap">
+    <nav class="navbar-glass glass" id="navbar">
+      <a href="/" class="nav-brand">
+        <span>ZWCH</span>
+        <span class="brand-badge">PRO</span>
       </a>
-      <div class="nav-links">
+
+      <div class="nav-menu">
         <a href="#prodotto" class="nav-link active">Prodotto</a>
-        <a href="#prove-istruzioni" class="nav-link">Prove &amp; Istruzioni</a>
+        <a href="#prove-istruzioni" class="nav-link">Come Funziona</a>
         <a href="#recensioni" class="nav-link">Recensioni</a>
         <a href="/status.html" class="nav-link">Stato</a>
-        <button class="nav-link nav-orders-btn" onclick="ZWCHAuth.openOrdersFlow()">I Miei Ordini</button>
+        <button class="nav-orders-pill" onclick="ZWCHAuth.openOrdersFlow()">I Miei Ordini</button>
       </div>
-      <div style="display:flex; align-items:center; gap:8px;">
-        <button class="btn-nav-orders-mobile" onclick="ZWCHAuth.openOrdersFlow()" title="I Miei Ordini">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+
+      <div class="nav-actions-right">
+        <button class="nav-mobile-orders" onclick="ZWCHAuth.openOrdersFlow()" title="I Miei Ordini">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
           <span>Ordini</span>
         </button>
-        <a href="https://t.me/zwchshope_bot" class="nav-action" target="_blank" rel="noopener" onclick="trackBotClick('navbar')" title="Assistenza Telegram">
+        <a href="https://t.me/zwchshope_bot" class="nav-btn-icon" target="_blank" rel="noopener" onclick="trackBotClick('navbar')" title="Assistenza Telegram">
           <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.34 14.082l-2.95-.924c-.642-.204-.656-.642.136-.953l11.57-4.461c.536-.194 1.006.131.798.477z"/></svg>
         </a>
       </div>
-    </div>
-  </nav>
+    </nav>
+  </header>
 
-  <!-- ═══════════════════════════════════════════════════ -->
-  <!-- 1. SEZIONE PRODOTTO (HERO & OFFERTA UNICA)          -->
-  <!-- ═══════════════════════════════════════════════════ -->
-  <section class="hero-product-section" id="prodotto">
-    <div class="hero-bg"></div>
-    <div class="hero-overlay"></div>
+  <main class="layout-container">
 
-    <div class="container hero-product-container">
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!-- 1. HERO SECTION (Hero.tsx adapted)                  -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <section class="hero-grid" id="prodotto">
 
-      <!-- Status badge row -->
-      <div class="hero-status-row">
-        <div class="stock-badge" id="hero-stock-badge">
-          <span class="stock-dot"></span>
-          <strong>Disponibilit&agrave; Immediata</strong> &mdash; Solo 3 licenze rimaste
-        </div>
-        <div class="delivery-time-badge">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          Consegna in ~5s via Email
+      <!-- Product Image Glass Card -->
+      <div class="glass glass-hover hero-product-img-card reveal">
+        <span class="hero-img-badge">-97% Sconto</span>
+        <img src="./18_Months.png" alt="Google Gemini Pro 18 Mesi Licenza Ufficiale" class="hero-product-img" loading="eager" />
+        <div class="hero-img-footer">
+          <span>&#10024;</span>
+          <span>Licenza Ufficiale 100% Personale &bull; 18 Mesi</span>
         </div>
       </div>
 
-      <div class="product-hero-grid">
-
-        <!-- Product Artwork Card -->
-        <div class="product-media-col">
-          <div class="product-artwork-card">
-            <div class="artwork-badge-discount">-97% Sconto</div>
-            <img src="./18_Months.png" alt="Google Gemini Pro 18 Mesi Licenza Ufficiale" class="product-artwork-img" loading="eager" />
-            <div class="artwork-footer-pill">
-              <span class="sparkle-icon">&#10024;</span>
-              <span>Licenza Ufficiale 100% Personale &bull; 18 Mesi</span>
-            </div>
-          </div>
+      <!-- Product Details Glass Card -->
+      <div class="glass hero-info-card reveal">
+        <div style="font-size:0.75rem; font-weight:800; letter-spacing:0.12em; color:var(--accent-glow); text-transform:uppercase;">
+          OFFERTA UFFICIALE ZWCH
         </div>
 
-        <!-- Product Details Column -->
-        <div class="product-details-col">
-          <div class="product-badge-sub">OFFERTA UFFICIALE ZWCH</div>
-          <h1 class="hero-product-title">
-            Google Gemini Pro<br />
-            <span class="accent-glow">18 Mesi di Accesso</span>
-          </h1>
-          <p class="hero-product-desc">
-            La suite IA pi&ugrave; potente di Google per coding, scrittura e ricerca. Nessun abbonamento, nessuna condivisione, licenza diretta sulla tua Gmail personale.
-          </p>
+        <h1 class="hero-title">Google Gemini Pro &mdash; 18 Mesi</h1>
 
-          <!-- Price Card -->
-          <div class="product-pricing-card">
-            <div class="pricing-row">
-              <div class="price-main">
-                <span class="currency">&#8364;</span><span class="amount">10</span>
-                <span class="price-period">una tantum</span>
-              </div>
-              <div class="price-old-wrap">
-                <span class="price-old">&#8364;396.00</span>
-                <span class="price-savings">Risparmi &#8364;386 (-97%)</span>
-              </div>
-            </div>
-            <div class="price-guarantee-note">
-              <span>&#10003; 18 Mesi completi</span> &bull; <span>&#10003; Zero costi ricorrenti</span> &bull; <span>&#10003; No rinnovo automatico</span>
-            </div>
-          </div>
-
-          <!-- Evergreen Countdown -->
-          <div class="hero-countdown-box">
-            <span class="countdown-tag">&#9203; Offerta promozionale valida per:</span>
-            <div class="countdown" id="countdown">
-              <div class="cd-block">
-                <span class="cd-num" id="cd-days">07</span>
-                <span class="cd-unit">Giorni</span>
-              </div>
-              <div class="cd-sep">:</div>
-              <div class="cd-block">
-                <span class="cd-num" id="cd-hours">00</span>
-                <span class="cd-unit">Ore</span>
-              </div>
-              <div class="cd-sep">:</div>
-              <div class="cd-block">
-                <span class="cd-num" id="cd-mins">00</span>
-                <span class="cd-unit">Min</span>
-              </div>
-              <div class="cd-sep">:</div>
-              <div class="cd-block">
-                <span class="cd-num" id="cd-secs">00</span>
-                <span class="cd-unit">Sec</span>
-              </div>
-            </div>
-            <p class="countdown-expired hidden" id="countdown-expired">Offerta in rinnovo</p>
-          </div>
-
-          <!-- Product Perks -->
-          <ul class="product-perks">
-            <li>
-              <span class="perk-check">&#10003;</span>
-              <div><strong>18 Mesi di Gemini Pro / Advanced:</strong> accesso completo e illimitato.</div>
-            </li>
-            <li>
-              <span class="perk-check">&#10003;</span>
-              <div><strong>Attivazione Personale:</strong> si attiva con 1 click sulla tua Gmail (no gruppi famiglia, no VPN).</div>
-            </li>
-            <li>
-              <span class="perk-check">&#10003;</span>
-              <div><strong>Consegna Automatica in 5 Secondi:</strong> ricevi la chiave e la guida subito via Email.</div>
-            </li>
-            <li>
-              <span class="perk-check">&#10003;</span>
-              <div><strong>Pagamento Unico di 10&#8364;:</strong> mai pi&ugrave; addebiti mensili da 21,99&#8364;/mese.</div>
-            </li>
-          </ul>
-
-          <!-- CTAs -->
-          <div class="product-cta-group">
-            <button class="btn btn-primary btn-hero-buy" onclick="ZWCHShop.openBuyModal(1)">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-              <span>Acquista con Carta &mdash; 10&#8364;</span>
-            </button>
-            <a href="https://t.me/zwchshope_bot" class="btn btn-ghost btn-hero-tg" target="_blank" rel="noopener" onclick="trackBotClick('hero_product_tg')">
-              <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.34 14.082l-2.95-.924c-.642-.204-.656-.642.136-.953l11.57-4.461c.536-.194 1.006.131.798.477z"/></svg>
-              <span>Compra su Telegram</span>
-            </a>
-          </div>
-
-          <!-- Trust pills -->
-          <div class="product-trust-row">
-            <span>&#128274; Pagamento protetto Stripe SSL</span>
-            <span>&#9889; Consegna automatica immediata</span>
-            <span>&#128737;&#65039; Garanzia 100% funzionamento</span>
-          </div>
-
+        <div class="hero-rating-row">
+          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <span><strong>4.9 / 5</strong> &bull; 87 recensioni verificate</span>
         </div>
 
-      </div>
-    </div>
-  </section>
+        <p class="hero-desc">
+          La suite di intelligenza artificiale pi&ugrave; avanzata di Google per coding, scrittura e analisi dati. 18 mesi completi, nessun abbonamento, attivazione diretta sulla tua Gmail.
+        </p>
 
-  <!-- ═══════════════════════════════════════════════════ -->
-  <!-- 2. SEZIONE PROVE & ISTRUZIONI                      -->
-  <!-- ═══════════════════════════════════════════════════ -->
-  <section class="proof-instructions-section" id="prove-istruzioni">
-    <div class="container">
+        <!-- Benefits with Icon Pills -->
+        <ul class="benefits-list">
+          <li class="benefit-item">
+            <span class="benefit-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </span>
+            <span>18 Mesi di accesso completo e illimitato a Gemini Pro</span>
+          </li>
+          <li class="benefit-item">
+            <span class="benefit-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            </span>
+            <span>Attivazione personale sulla tua Gmail (no family, no VPN)</span>
+          </li>
+          <li class="benefit-item">
+            <span class="benefit-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </span>
+            <span>Consegna automatica in ~5 secondi via Email e Telegram</span>
+          </li>
+          <li class="benefit-item">
+            <span class="benefit-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </span>
+            <span>Pagamento unico di 10&#8364; &mdash; mai pi&ugrave; costi ricorrenti</span>
+          </li>
+        </ul>
 
-      <div class="section-header-center">
-        <p class="section-label">Trasparente &bull; Semplice &bull; Verificato</p>
-        <h2 class="section-title">Come Funziona &amp; Prova di Consegna Reale</h2>
-        <p class="section-sub">Zero passaggi complicati: inserisci l'email, completi il pagamento sicuro e la licenza arriva all'istante nella tua casella di posta.</p>
-      </div>
-
-      <!-- The 3 Steps Flow -->
-      <div class="instruction-steps-grid">
-        <div class="instruction-step-card">
-          <div class="step-badge-num">01</div>
-          <div class="step-icon-glow">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          </div>
-          <h3>1. Inserisci la tua Email</h3>
-          <p>Nessuna registrazione o password da ricordare. Ti basta inserire l'indirizzo email dove vuoi ricevere il link di attivazione e la ricevuta.</p>
+        <!-- Price Row -->
+        <div class="price-row-glass">
+          <span class="price-deal">&#8364;10</span>
+          <span class="price-old">&#8364;396,00</span>
+          <span class="price-discount-pill">-97% Risparmio</span>
         </div>
 
-        <div class="instruction-step-card">
-          <div class="step-badge-num">02</div>
-          <div class="step-icon-glow">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28"><rect x="2" y="5" width="20" height="14" rx="2" ry="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+        <!-- Countdown Pill -->
+        <div class="countdown-pill-card" id="countdown">
+          <span class="countdown-label-text">&#9203; Offerta a tempo valida per:</span>
+          <div class="countdown-numbers">
+            <span id="cd-days">07</span>g : <span id="cd-hours">00</span>h : <span id="cd-mins">00</span>m : <span id="cd-secs">00</span>s
           </div>
-          <h3>2. Pagamento Sicuro (10&#8364;)</h3>
-          <p>Paga comodamente con qualsiasi carta tramite Stripe (crittografia bancaria 256-bit) o via Telegram. Pagamento unico, nessun abbonamento.</p>
+          <span class="hidden" id="countdown-expired">Offerta in rinnovo</span>
         </div>
 
-        <div class="instruction-step-card">
-          <div class="step-badge-num">03</div>
-          <div class="step-icon-glow">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-          </div>
-          <h3>3. Licenza Subito nella Mail</h3>
-          <p>In meno di 5 secondi ricevi l'email automatica con il tuo link personale di attivazione ufficiale. Clicchi, colleghi la tua Gmail ed &egrave; attiva per 18 mesi!</p>
-        </div>
-      </div>
-
-      <!-- REAL SCREENSHOT / MOCKUP OF THE EMAIL DELIVERY -->
-      <div class="proof-mockup-wrapper">
-        <div class="proof-mockup-label">
-          <span class="proof-live-dot"></span>
-          <strong>Screenshot Reale dell'Email Ricevuta</strong> &mdash; Ecco cosa ti arriva dopo il pagamento:
-        </div>
-
-        <div class="email-mockup-window">
-          <!-- Mail client top bar -->
-          <div class="email-mockup-client-bar">
-            <div class="client-bar-left">
-              <span class="client-back-btn">&lsaquo; Posta in arrivo</span>
-            </div>
-            <div class="client-bar-actions">
-              <span class="client-action-icon" title="Archivia">&#128229;</span>
-              <span class="client-action-icon" title="Cestino">&#128465;&#65039;</span>
-              <span class="client-action-icon" title="Rispondi">&#8617;&#65039;</span>
-            </div>
-          </div>
-
-          <!-- Mail Meta Header -->
-          <div class="email-mockup-meta">
-            <div class="meta-sender-row">
-              <div class="sender-avatar">Z</div>
-              <div class="sender-info">
-                <div class="sender-name-wrap">
-                  <strong>ZWCH Shop</strong>
-                  <span class="sender-email">&lt;orders@zwch.store&gt;</span>
-                  <span class="verified-sender-badge">&#10003; Mittente Verificato</span>
-                </div>
-                <div class="recipient-line">A: <span class="recipient-addr">tua-email@gmail.com</span></div>
-              </div>
-              <div class="meta-time">Oggi, 20:34 <span class="time-quick">(inviata in 4s)</span></div>
-            </div>
-            <div class="email-subject-line">
-              &#127881; <strong>Pagamento confermato! Ecco la tua licenza Gemini Pro 18 Mesi (#4819)</strong>
-            </div>
-          </div>
-
-          <!-- Actual Email Template Body (Replica 1:1 of email_service.py) -->
-          <div class="email-mockup-body">
-            <div class="email-card-inner">
-              <div class="email-brand-header">
-                <div class="email-logo">ZWCH</div>
-                <div class="email-header-title">Conferma Ordine &amp; Licenza Ufficiale</div>
-              </div>
-
-              <div class="email-content-padding">
-                <p class="email-intro">
-                  &#127881; <strong>Pagamento completato con successo!</strong> Grazie per il tuo acquisto su ZWCH Shop.
-                </p>
-                <div class="email-order-specs">
-                  <div class="order-spec-item">
-                    <span class="spec-label">Prodotto:</span>
-                    <span class="spec-value"><strong>Google Gemini Pro 18 Months</strong> <span class="spec-badge">#4819</span></span>
-                  </div>
-                  <div class="order-spec-item">
-                    <span class="spec-label">Importo Pagato:</span>
-                    <span class="spec-value highlight-price">&#8364;10.00 EUR <span class="spec-badge-ok">Pagamento Unico</span></span>
-                  </div>
-                  <div class="order-spec-item">
-                    <span class="spec-label">Stato Consegna:</span>
-                    <span class="spec-value green-status">&#9679; Consegnato all'istante (0 secondi di attesa)</span>
-                  </div>
-                </div>
-
-                <!-- Key Box -->
-                <div class="email-key-box">
-                  <div class="key-box-label">&#128273; Il tuo Link Personale di Attivazione Gemini Pro</div>
-                  <div class="key-box-value">https://gemini.google.com/activate?code=ZWCH-GEM-18M-9482X</div>
-                  <div class="key-box-actions">
-                    <button type="button" class="btn-copy-mockup" onclick="copyDemoKey(this)">&#128203; Copia Link</button>
-                    <span class="key-click-hint">Oppure clicca per attivare direttamente su Google</span>
-                  </div>
-                </div>
-
-                <!-- Activation instructions inside email -->
-                <div class="email-instructions-box">
-                  <div class="instr-title">&#128203; Istruzioni Rapide per l'Attivazione:</div>
-                  <ol class="instr-steps">
-                    <li>Clicca sul link di attivazione personale riportato sopra</li>
-                    <li>Accedi con il tuo account Google principale (la tua normale Gmail)</li>
-                    <li>Conferma cliccando su <strong>"Attiva Piano 18 Mesi"</strong></li>
-                    <li>Fatto! Gemini Pro &egrave; attivo per 1.5 anni senza abbonamento.</li>
-                  </ol>
-                </div>
-
-                <p class="email-safe-note">
-                  &#128737;&#65039; Nessun account condiviso. La licenza &egrave; permanente e personale per 18 mesi. Puoi consultare lo storico dei tuoi ordini in qualsiasi momento su <a href="https://zwch.store" target="_blank" rel="noopener">zwch.store</a>.
-                </p>
-              </div>
-
-              <div class="email-card-footer">
-                <span>&copy; 2026 ZWCH Shop &bull; Licenze Digitali Ufficiali &bull; Supporto 24/7: @zwchshope_bot</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Proof Guarantees underneath -->
-        <div class="proof-guarantees-grid">
-          <div class="proof-g-item">
-            <div class="proof-g-icon">&#9889;</div>
-            <div>
-              <strong>Tempo medio di invio: 4.8 secondi</strong>
-              <p>Sistema di consegna automatizzato via API Resend attivo 24/7.</p>
-            </div>
-          </div>
-          <div class="proof-g-item">
-            <div class="proof-g-icon">&#128737;&#65039;</div>
-            <div>
-              <strong>100% Ufficiale &amp; Personale</strong>
-              <p>Nessun gruppo famiglia a rischio ban, nessuna password richiesta.</p>
-            </div>
-          </div>
-          <div class="proof-g-item">
-            <div class="proof-g-icon">&#128172;</div>
-            <div>
-              <strong>Supporto Live Diretto</strong>
-              <p>Assistenza sempre disponibile su Telegram per qualsiasi esigenza.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="proof-cta-center">
-          <button class="btn btn-primary btn-lg" onclick="ZWCHShop.openBuyModal(1)">
-            &#9889; Inserisci la tua Email e Ricevi la Licenza &mdash; 10&#8364;
+        <!-- Action CTAs -->
+        <div class="hero-actions-group">
+          <button class="btn-glow" onclick="ZWCHShop.openBuyModal(1)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            <span>Compra ora &mdash; 10&#8364;</span>
           </button>
+          <a href="https://t.me/zwchshope_bot" class="btn-glass" target="_blank" rel="noopener" onclick="trackBotClick('hero_product_tg')">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.34 14.082l-2.95-.924c-.642-.204-.656-.642.136-.953l11.57-4.461c.536-.194 1.006.131.798.477z"/></svg>
+            <span>Compra su Telegram</span>
+          </a>
+        </div>
+
+        <div class="hero-trust-note">
+          <span>&#128274; Stripe SSL Protetto</span>
+          <span>&bull;</span>
+          <span>&#9889; Consegna Automatica</span>
+          <span>&bull;</span>
+          <span>&#128737;&#65039; Garanzia 100% Attivazione</span>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!-- 2. ISTRUZIONI & PROVE (Istruzioni.tsx adapted)      -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <section style="padding: 4rem 0;" id="prove-istruzioni" aria-labelledby="come-funziona-title">
+      <div class="section-title-wrap">
+        <h2 id="come-funziona-title" class="section-h2">Come funziona &amp; Prova di consegna</h2>
+        <p class="section-p-sub">3 passaggi immediati. Ecco come ricevi la licenza nella tua posta dopo il pagamento sicuro.</p>
+      </div>
+
+      <!-- 3 Glass Step Cards -->
+      <div class="steps-cards-grid">
+
+        <div class="glass glass-hover step-glass-card reveal">
+          <span class="step-num-circle">1</span>
+          <h3 class="step-h3">1. Inserisci la tua Email</h3>
+          <p class="step-p">
+            Nessuna registrazione complicata. Ti basta indicare l'indirizzo email dove vuoi ricevere la chiave di attivazione e la ricevuta d'ordine.
+          </p>
+        </div>
+
+        <div class="glass glass-hover step-glass-card reveal" style="transition-delay: 100ms;">
+          <span class="step-num-circle">2</span>
+          <h3 class="step-h3">2. Pagamento Sicuro 10&#8364;</h3>
+          <p class="step-p">
+            Paga comodamente con qualsiasi carta tramite Stripe protetto SSL o via Telegram. Nessun costo nascosto, nessun abbonamento ricorrente.
+          </p>
+        </div>
+
+        <div class="glass glass-hover step-glass-card reveal" style="transition-delay: 200ms;">
+          <span class="step-num-circle">3</span>
+          <h3 class="step-h3">3. Licenza Subito nella Mail</h3>
+          <p class="step-p">
+            Entro 5 secondi ricevi l'email con il link di attivazione ufficiale Gemini Pro. Clicchi, colleghi la tua normale Gmail ed &egrave; attiva per 18 mesi!
+          </p>
         </div>
 
       </div>
 
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════ -->
-  <!-- 3. SEZIONE RECENSIONI E FEEDBACK                    -->
-  <!-- ═══════════════════════════════════════════════════ -->
-  <section class="reviews-section" id="recensioni">
-    <div class="container">
-
-      <div class="section-header-center">
-        <p class="section-label">Riprova Sociale &bull; Trasparenza Totale</p>
-        <h2 class="section-title">Cosa Dicono i Nostri Clienti</h2>
-        <p class="section-sub">Feedback reali e verificati lasciati dagli acquirenti nella nostra community Telegram.</p>
-      </div>
-
-      <!-- Big Rating Summary -->
-      <div class="reviews-overall-card">
-        <div class="reviews-stars-big">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <div class="reviews-score-big">4.9 / 5.0</div>
-        <div class="reviews-verified-tag">
-          <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-          87+ Recensioni Verificate dalla Community
-        </div>
-      </div>
-
-      <!-- Reviews Grid (Mobile-optimised cards) -->
-      <div class="reviews-cards-grid">
-
-        <div class="review-box-item">
-          <div class="review-box-top">
-            <div class="review-user-avatar" style="background: linear-gradient(135deg, #00d4ff, #0077ff);">f</div>
-            <div class="review-user-meta">
-              <strong class="review-user-name">fixpu</strong>
-              <span class="review-user-handle">@italiantax</span>
-            </div>
-            <div class="review-stars-gold">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <!-- REAL EMAIL DELIVERY PROOF MOCKUP (Glass Shell) -->
+      <div class="glass proof-email-wrap reveal">
+        <!-- Client Bar -->
+        <div class="proof-client-bar">
+          <span class="client-app-title">&lsaquo; Posta in arrivo &bull; Ricevuta &amp; Licenza Ufficiale</span>
+          <div class="client-app-dots">
+            <span class="client-dot"></span>
+            <span class="client-dot"></span>
+            <span class="client-dot"></span>
           </div>
-          <p class="review-quote">
+        </div>
+
+        <!-- Meta Header -->
+        <div class="proof-email-header">
+          <div class="proof-sender-row">
+            <div class="proof-sender-left">
+              <span class="sender-avatar-circle">Z</span>
+              <div class="sender-name-meta">
+                <div>
+                  <strong>ZWCH Shop</strong>
+                  <span class="sender-email-addr">&lt;orders@zwch.store&gt;</span>
+                  <span class="proof-verified-badge">&#10003; Mittente Verificato</span>
+                </div>
+                <div style="font-size:0.78rem; color:var(--muted-foreground); margin-top:2px;">
+                  A: <span style="color:#cbd5e1;">tua-email@gmail.com</span>
+                </div>
+              </div>
+            </div>
+            <div class="proof-time-pill">
+              Oggi, 20:34 <span style="color:#10d98a; font-weight:700;">(inviata in 4s)</span>
+            </div>
+          </div>
+          <div class="proof-subject-line">
+            &#127881; <strong>Pagamento confermato! Ecco la tua licenza Gemini Pro 18 Mesi (#4819)</strong>
+          </div>
+        </div>
+
+        <!-- Email Body -->
+        <div class="proof-email-body">
+          <div class="proof-inner-template">
+            <div class="proof-template-top">
+              <div class="logo-t">ZWCH</div>
+              <div style="font-size:0.85rem; font-weight:600; opacity:0.9;">Conferma Ordine &amp; Licenza Ufficiale</div>
+            </div>
+
+            <div class="proof-template-padding">
+              <p style="font-size:0.92rem; color:#cbd5e1; line-height:1.5;">
+                &#127881; <strong>Pagamento completato con successo!</strong> Grazie per il tuo acquisto su ZWCH Shop.
+              </p>
+
+              <!-- Order Specs -->
+              <div class="proof-specs-table">
+                <div class="proof-spec-row">
+                  <span style="color:var(--muted-foreground);">Prodotto:</span>
+                  <span style="color:#fff; font-weight:700;">Google Gemini Pro 18 Months <span style="color:var(--accent-glow);">#4819</span></span>
+                </div>
+                <div class="proof-spec-row">
+                  <span style="color:var(--muted-foreground);">Importo:</span>
+                  <span style="color:#fff; font-weight:800;">&#8364;10.00 EUR <span style="color:#10d98a; font-size:0.75rem; background:rgba(16,217,138,0.12); padding:2px 6px; border-radius:4px;">Pagamento Unico</span></span>
+                </div>
+                <div class="proof-spec-row">
+                  <span style="color:var(--muted-foreground);">Stato Consegna:</span>
+                  <span style="color:#10d98a; font-weight:600;">&#9679; Consegnato istantaneamente in chat e posta</span>
+                </div>
+              </div>
+
+              <!-- Key Box -->
+              <div class="proof-key-container">
+                <div class="proof-key-label">&#128273; Il tuo Link Personale di Attivazione Gemini Pro:</div>
+                <div class="proof-key-link">https://gemini.google.com/activate?code=ZWCH-GEM-18M-9482X</div>
+                <button class="proof-key-action-btn" onclick="copyDemoKey(this)">&#128203; Copia Link</button>
+              </div>
+
+              <!-- Instructions Box -->
+              <div class="proof-instructions-list">
+                <strong style="color:#fff;">&#128203; Istruzioni di attivazione immediata:</strong>
+                <ol>
+                  <li>Clicca sul link personale di attivazione sopra riportato</li>
+                  <li>Accedi con il tuo account Google principale (la tua normale Gmail)</li>
+                  <li>Premi su <strong>"Attiva Piano 18 Mesi"</strong></li>
+                  <li>Fatto! Gemini Pro &egrave; attivo per 1.5 anni senza alcun abbonamento.</li>
+                </ol>
+              </div>
+
+              <div style="font-size:0.75rem; color:var(--muted-foreground); text-align:center;">
+                &#128737;&#65039; Licenza personale e permanente. Nessun account condiviso. Supporto 24/7 su Telegram: @zwchshope_bot
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!-- 3. RECENSIONI (Recensioni.tsx adapted)              -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <section class="reviews-section-wrap" id="recensioni" aria-labelledby="recensioni-title">
+      <div class="section-title-wrap">
+        <h2 id="recensioni-title" class="section-h2">Cosa dicono i clienti</h2>
+        <p class="section-p-sub">Feedback reali e verificati lasciati dagli acquirenti nella nostra community.</p>
+      </div>
+
+      <!-- Rating Summary Glass Pill -->
+      <div class="glass reviews-summary-glass-pill reveal">
+        <div class="summary-score-large">4.9<span>/5</span></div>
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <span style="font-size:0.85rem; color:var(--muted-foreground);">Basato su 87 recensioni verificate della community Telegram</span>
+      </div>
+
+      <!-- 6 Glass Review Cards Grid -->
+      <div class="reviews-grid-cards">
+
+        <div class="glass glass-hover review-item-glass reveal">
+          <div class="review-author-row">
+            <span class="author-initials-avatar">FR</span>
+            <div class="author-info-meta">
+              <p class="author-name-text">fixpu</p>
+              <p class="author-date-text">@italiantax &bull; 10 ottobre 2026</p>
+            </div>
+          </div>
+          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="review-body-quote">
             "I migliori in assoluto! Pagato con carta in 10 secondi, email arrivata subito con il link di attivazione. Gemini Pro 18 mesi attivo sul mio Google principale senza problemi."
           </p>
-          <div class="review-verified-badge">
-            <span class="badge-check">&#10003;</span> Acquisto Verificato &bull; 18 Mesi Gemini Pro
-          </div>
+          <span class="review-verified-pill">&#10003; Acquisto Verificato</span>
         </div>
 
-        <div class="review-box-item">
-          <div class="review-box-top">
-            <div class="review-user-avatar" style="background: linear-gradient(135deg, #7c3aed, #4f46e5);">n</div>
-            <div class="review-user-meta">
-              <strong class="review-user-name">niko_dev</strong>
-              <span class="review-user-handle">@niko_dev</span>
+        <div class="glass glass-hover review-item-glass reveal" style="transition-delay: 100ms;">
+          <div class="review-author-row">
+            <span class="author-initials-avatar">ND</span>
+            <div class="author-info-meta">
+              <p class="author-name-text">niko_dev</p>
+              <p class="author-date-text">@niko_dev &bull; 6 ottobre 2026</p>
             </div>
-            <div class="review-stars-gold">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
           </div>
-          <p class="review-quote">
+          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="review-body-quote">
             "Qualit&agrave; top. Ci &egrave; voluto letteralmente 1 minuto: pagato con Stripe, arrivata la mail con il link, attivato subito. 18 mesi di Gemini Advanced a 10&#8364; &egrave; imbattibile."
           </p>
-          <div class="review-verified-badge">
-            <span class="badge-check">&#10003;</span> Acquisto Verificato &bull; 18 Mesi Gemini Pro
-          </div>
+          <span class="review-verified-pill">&#10003; Acquisto Verificato</span>
         </div>
 
-        <div class="review-box-item">
-          <div class="review-box-top">
-            <div class="review-user-avatar" style="background: linear-gradient(135deg, #10d98a, #059669);">m</div>
-            <div class="review-user-meta">
-              <strong class="review-user-name">marco_v</strong>
-              <span class="review-user-handle">@marco_val</span>
+        <div class="glass glass-hover review-item-glass reveal" style="transition-delay: 200ms;">
+          <div class="review-author-row">
+            <span class="author-initials-avatar">MV</span>
+            <div class="author-info-meta">
+              <p class="author-name-text">marco_v</p>
+              <p class="author-date-text">@marco_val &bull; 1 ottobre 2026</p>
             </div>
-            <div class="review-stars-gold">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
           </div>
-          <p class="review-quote">
+          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="review-body-quote">
             "Ero scettico all'inizio per il prezzo cos&igrave; basso, ma il link &egrave; ufficiale Google al 100%. Nessuna VPN, nessun account strano da condividere. Consigliatissimo!"
           </p>
-          <div class="review-verified-badge">
-            <span class="badge-check">&#10003;</span> Acquisto Verificato &bull; 18 Mesi Gemini Pro
-          </div>
+          <span class="review-verified-pill">&#10003; Acquisto Verificato</span>
         </div>
 
-        <div class="review-box-item">
-          <div class="review-box-top">
-            <div class="review-user-avatar" style="background: linear-gradient(135deg, #f59e0b, #d97706);">a</div>
-            <div class="review-user-meta">
-              <strong class="review-user-name">alex_tech</strong>
-              <span class="review-user-handle">@alex_tech92</span>
+        <div class="glass glass-hover review-item-glass reveal">
+          <div class="review-author-row">
+            <span class="author-initials-avatar">AT</span>
+            <div class="author-info-meta">
+              <p class="author-name-text">alex_tech</p>
+              <p class="author-date-text">@alex_tech92 &bull; 26 settembre 2026</p>
             </div>
-            <div class="review-stars-gold">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
           </div>
-          <p class="review-quote">
+          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="review-body-quote">
             "Rapporto qualit&agrave; prezzo assurdo. Con 10&#8364; ho 18 mesi di Gemini Pro per programmare. Assistenza Telegram disponibile e tempestiva per ogni domanda."
           </p>
-          <div class="review-verified-badge">
-            <span class="badge-check">&#10003;</span> Acquisto Verificato &bull; 18 Mesi Gemini Pro
+          <span class="review-verified-pill">&#10003; Acquisto Verificato</span>
+        </div>
+
+        <div class="glass glass-hover review-item-glass reveal" style="transition-delay: 100ms;">
+          <div class="review-author-row">
+            <span class="author-initials-avatar">DK</span>
+            <div class="author-info-meta">
+              <p class="author-name-text">davide.k</p>
+              <p class="author-date-text">@davide_k &bull; 20 settembre 2026</p>
+            </div>
+          </div>
+          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="review-body-quote">
+            "Licenza arrivata sia via mail che su Telegram in pochissimi secondi. Cliccato il link e Gemini &egrave; passato immediatamente a Pro. Servizio eccezionale!"
+          </p>
+          <span class="review-verified-pill">&#10003; Acquisto Verificato</span>
+        </div>
+
+        <div class="glass glass-hover review-item-glass reveal" style="transition-delay: 200ms;">
+          <div class="review-author-row">
+            <span class="author-initials-avatar">EM</span>
+            <div class="author-info-meta">
+              <p class="author-name-text">elena_m</p>
+              <p class="author-date-text">@elena_m &bull; 15 settembre 2026</p>
+            </div>
+          </div>
+          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="review-body-quote">
+            "Design elegante e transazione super fluida. Pagamento con carta sicuro e link ufficiale funzionante al primo tentativo. Molto soddisfatta del risparmio!"
+          </p>
+          <span class="review-verified-pill">&#10003; Acquisto Verificato</span>
+        </div>
+
+      </div>
+
+      <!-- Telegram Community Glass Banner -->
+      <div class="glass telegram-community-glass reveal">
+        <div class="tg-community-left">
+          <div class="tg-big-icon-box">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="34" height="34"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.34 14.082l-2.95-.924c-.642-.204-.656-.642.136-.953l11.57-4.461c.536-.194 1.006.131.798.477z"/></svg>
+          </div>
+          <div class="tg-community-text">
+            <h3>Vuoi consultare altre prove dal vivo?</h3>
+            <p>Tutti gli screenshot, le prove e le vouch inviate dai clienti vengono pubblicate pubblicamente nel nostro canale Telegram.</p>
           </div>
         </div>
-
+        <a href="https://t.me/zwchshope_bot" class="btn-glow" target="_blank" rel="noopener" onclick="trackBotClick('reviews_telegram_channel')">
+          <span>Vedi Prove su Telegram</span>
+        </a>
       </div>
 
-      <!-- Telegram Community Banner -->
-      <div class="reviews-tg-community-card">
-        <div class="tg-comm-icon">
-          <svg viewBox="0 0 24 24" fill="currentColor" width="36" height="36"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.34 14.082l-2.95-.924c-.642-.204-.656-.642.136-.953l11.57-4.461c.536-.194 1.006.131.798.477z"/></svg>
-        </div>
-        <div class="tg-comm-content">
-          <h3>Vuoi consultare altre recensioni dal vivo?</h3>
-          <p>Tutti gli screenshot, le prove e le vouch inviate dai clienti vengono pubblicate pubblicamente nel nostro canale Telegram.</p>
-        </div>
-        <div class="tg-comm-action">
-          <a href="https://t.me/zwchshope_bot" class="btn btn-primary" target="_blank" rel="noopener" onclick="trackBotClick('reviews_telegram_channel')">
-            Vedi Prove su Telegram
-          </a>
-        </div>
+    </section>
+
+    <!-- ── 4. FOOTER (Footer.tsx adapted) ── -->
+    <footer class="footer-wrap">
+      <div class="glass footer-glass">
+        <span style="font-size:1.15rem; font-weight:800; color:#fff;">ZWCH Shop</span>
+        <nav class="footer-links-nav">
+          <a href="#prodotto">Prodotto</a>
+          <a href="#prove-istruzioni">Come Funziona</a>
+          <a href="#recensioni">Recensioni</a>
+          <a href="/status.html">Stato</a>
+          <a href="./terms.html">Termini</a>
+          <a href="./privacy.html">Privacy</a>
+          <a href="https://t.me/zwchshope_bot" target="_blank" rel="noopener">Supporto</a>
+        </nav>
+        <span class="footer-copy">&copy; 2026 ZWCH Shop &bull; Licenze Digitali Ufficiali</span>
       </div>
+    </footer>
 
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="footer" id="footer">
-    <div class="container">
-      <div class="footer-top">
-        <div class="footer-brand">
-          <a href="/" class="nav-logo">
-            <span class="logo-zw">ZW</span><span class="logo-ch">CH</span>
-            <span class="logo-shop">Shop</span>
-          </a>
-          <p>Licenze Digitali &amp; Abbonamenti Ufficiali.<br />Consegna istantanea, prodotti verificati, zero abbonamenti.</p>
-          <a href="https://t.me/zwchshope_bot" class="btn btn-primary btn-sm" target="_blank" rel="noopener" onclick="trackBotClick('footer')">
-            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.34 14.082l-2.95-.924c-.642-.204-.656-.642.136-.953l11.57-4.461c.536-.194 1.006.131.798.477z"/></svg>
-            Supporto Telegram 24/7
-          </a>
-        </div>
-
-        <div class="footer-links">
-          <h4>Navigazione</h4>
-          <ul>
-            <li><a href="#prodotto">Prodotto</a></li>
-            <li><a href="#prove-istruzioni">Prove &amp; Istruzioni</a></li>
-            <li><a href="#recensioni">Recensioni</a></li>
-            <li><a href="/status.html">Stato del Servizio</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-links">
-          <h4>Legale &amp; Info</h4>
-          <ul>
-            <li><a href="./terms.html">Termini di Servizio</a></li>
-            <li><a href="./privacy.html">Privacy Policy</a></li>
-            <li><a href="https://t.me/zwchshope_bot" target="_blank" rel="noopener">Contatta Assistenza</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <p>&copy; 2026 ZWCH Shop. Tutti i diritti riservati. Licenze digitali distribuite tramite canali autorizzati.</p>
-        <p>Supporto: <a href="https://t.me/zwchshope_bot" target="_blank" rel="noopener">@zwchshope_bot</a> &nbsp;&middot;&nbsp; <a href="https://zwch.store/">zwch.store</a></p>
-      </div>
-    </div>
-  </footer>
+  </main>
 
   <script src="./script.js"></script>
   <script>

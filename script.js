@@ -138,25 +138,26 @@ window.trackBotClick = trackBotClick;
 // ── Scroll Reveal ─────────────────────────────────────
 (function initReveal() {
   const targets = document.querySelectorAll(
-    '.step-card, .feature-card, .trust-list li, .faq-item, .offer-card, .how-badge, .trust-card-big'
+    '.reveal, .istruzioni-card, .review-card, .proof-card, .step-card, .feature-card, .trust-list li, .faq-item, .offer-card, .how-badge, .trust-card-big'
   );
 
   targets.forEach(el => el.classList.add('reveal'));
 
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, idx) => {
+    entries.forEach((entry) => {
       if (entry.isIntersecting) {
         // Staggered delay based on sibling index
         const siblings = Array.from(entry.target.parentElement?.children || []);
         const i = siblings.indexOf(entry.target);
-        entry.target.style.transitionDelay = `${Math.min(i * 80, 320)}ms`;
+        entry.target.style.transitionDelay = `${Math.min(i * 90, 360)}ms`;
+        entry.target.classList.add('reveal-in');
         entry.target.classList.add('visible');
         observer.unobserve(entry.target);
       }
     });
   }, {
-    threshold: 0.12,
-    rootMargin: '0px 0px -30px 0px'
+    threshold: 0.08,
+    rootMargin: '0px 0px -20px 0px'
   });
 
   targets.forEach(el => observer.observe(el));
