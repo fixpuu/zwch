@@ -818,6 +818,8 @@ const ZWCHOrders = (() => {
     const lastEl = document.getElementById('status-last-check');
     const badgeBackend = document.getElementById('badge-backend');
 
+    if (!latEl && !lastEl && !badgeBackend) return;
+
     const start = performance.now();
     try {
       const res = await fetch(`${API}/health`, { method: 'GET' });
