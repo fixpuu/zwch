@@ -211,6 +211,14 @@ img {
   text-transform: uppercase;
 }
 
+.nav-brand-img {
+  height: 28px;
+  width: auto;
+  max-width: 130px;
+  object-fit: contain;
+  display: block;
+}
+
 .brand-name {
   font-weight: 850;
   letter-spacing: -0.01em;
@@ -443,29 +451,105 @@ img {
 
 .hero-orb-outer {
   position: relative;
-  width: min(85vw, 340px);
-  height: min(85vw, 340px);
+  width: min(88vw, 340px);
+  height: min(88vw, 340px);
   border-radius: 50%;
   background: var(--gradient-orb);
-  box-shadow: 0 20px 60px -15px rgba(37, 99, 235, 0.45), 0 0 1px 1px rgba(255, 255, 255, 0.6) inset;
+  box-shadow: 0 25px 65px -12px rgba(37, 99, 235, 0.42), 0 0 1px 1px rgba(255, 255, 255, 0.7) inset;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.75rem;
+  padding: 0.85rem;
 }
 
 .hero-orb-inner {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.5rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08), inset 0 2px 4px rgba(255, 255, 255, 0.9);
+  padding: 1rem 0.5rem;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.07), inset 0 2px 4px rgba(255, 255, 255, 0.95);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-gemini-showcase {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 2;
+  user-select: none;
+}
+
+.gemini-star-halo {
+  position: absolute;
+  top: 10%;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.4) 0%, rgba(37, 99, 235, 0.15) 50%, transparent 70%);
+  filter: blur(14px);
+  pointer-events: none;
+  animation: pulseHalo 4s ease-in-out infinite alternate;
+}
+
+@keyframes pulseHalo {
+  0% { transform: scale(0.9); opacity: 0.6; }
+  100% { transform: scale(1.15); opacity: 1; }
+}
+
+.gemini-star-svg {
+  width: 125px;
+  height: 125px;
+  filter: drop-shadow(0 10px 22px rgba(37, 99, 235, 0.35));
+  animation: floatStar 4.5s ease-in-out infinite;
+  margin-top: -0.5rem;
+}
+
+@keyframes floatStar {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.gemini-brand-text {
+  font-size: 2.35rem;
+  font-weight: 850;
+  letter-spacing: -0.04em;
+  color: var(--text-main);
+  line-height: 1.1;
+  margin-top: 0.4rem;
+}
+
+.gemini-tier-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.4rem;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  background: rgba(37, 99, 235, 0.08);
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  color: var(--brand-primary);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+.tier-pill-pulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand-primary);
+  box-shadow: 0 0 8px var(--brand-primary);
 }
 
 .hero-orb-product-img {
@@ -1096,6 +1180,20 @@ img {
   flex-direction: column;
   gap: 0.75rem;
   margin-bottom: 2rem;
+}
+
+.footer-brand-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.35rem;
+}
+
+.footer-brand-img {
+  height: 32px;
+  width: auto;
+  max-width: 140px;
+  object-fit: contain;
 }
 
 .footer-links-row {

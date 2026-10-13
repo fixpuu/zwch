@@ -281,8 +281,8 @@
   <!-- FLOATING PILL NAVBAR (Screenshot 1 Top Bar) -->
   <header class="navbar-wrapper">
     <nav class="navbar-pill-glass" id="navbar">
-      <a href="/" class="nav-brand">
-        <span class="brand-name">ZWCH</span>
+      <a href="/" class="nav-brand" aria-label="ZWCH Shop">
+        <img src="./logo_nav.png" alt="ZWCH Shop" class="nav-brand-img" />
         <span class="brand-pill-badge">PRO</span>
       </a>
 
@@ -349,11 +349,30 @@
         </p>
       </div>
 
-      <!-- Center Visual: Glowing Orb with Product Artwork & Floating Pill -->
+      <!-- Center Visual: Glowing Orb with Big Gemini Pro Showcase & Floating Pill -->
       <div class="hero-visual-center-wrap">
         <div class="hero-orb-outer">
           <div class="hero-orb-inner">
-            <img src="./18_Months.png" alt="Google Gemini Pro 18 Mesi Licenza Ufficiale" class="hero-orb-product-img" loading="eager" />
+            <div class="hero-gemini-showcase">
+              <div class="gemini-star-halo"></div>
+              <svg viewBox="0 0 100 100" class="gemini-star-svg" aria-label="Google Gemini Star">
+                <defs>
+                  <linearGradient id="gemini_star_grad" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#ff5252"/>
+                    <stop offset="30%" stop-color="#4285f4"/>
+                    <stop offset="65%" stop-color="#1a73e8"/>
+                    <stop offset="85%" stop-color="#34a853"/>
+                    <stop offset="100%" stop-color="#fbbc04"/>
+                  </linearGradient>
+                </defs>
+                <path d="M46.48 76.84C48.83 82.19 50.00 87.91 50.00 94.00C50.00 87.91 51.14 82.19 53.41 76.84C55.76 71.49 58.91 66.83 62.87 62.87C66.83 58.91 71.49 55.79 76.84 53.52C82.19 51.17 87.91 50.00 94.00 50.00C87.91 50.00 82.19 48.86 76.84 46.59C71.49 44.24 66.83 41.09 62.87 37.13C58.91 33.17 55.76 28.51 53.41 23.16C51.14 17.81 50.00 12.09 50.00 6.00C50.00 12.09 48.83 17.81 46.48 23.16C44.21 28.51 41.09 33.17 37.13 37.13C33.17 41.09 28.51 44.24 23.16 46.59C17.81 48.86 12.09 50.00 6.00 50.00C12.09 50.00 17.81 51.17 23.16 53.52C28.51 55.79 33.17 58.91 37.13 62.87C41.09 66.83 44.21 71.49 46.48 76.84Z" fill="url(#gemini_star_grad)"/>
+              </svg>
+              <div class="gemini-brand-text">Gemini</div>
+              <div class="gemini-tier-pill">
+                <span class="tier-pill-pulse"></span>
+                <span>PRO &bull; 18 MESI</span>
+              </div>
+            </div>
           </div>
           <!-- Floating Feature Badge (like 40h battery life in image 1) -->
           <div class="hero-orb-floating-badge">
@@ -629,6 +648,9 @@
 
       <!-- CLEAN PILL FOOTER (Screenshot 3 Bottom Pill) -->
       <footer class="footer-pill-glass">
+        <div class="footer-brand-wrap">
+          <img src="./logo_nav.png" alt="ZWCH Shop" class="footer-brand-img" />
+        </div>
         <div class="footer-links-row">
           <a href="#prodotto" class="footer-pill-link">Prodotto</a>
           <a href="#vantaggi" class="footer-pill-link">Vantaggi</a>
