@@ -155,16 +155,10 @@ img {
   padding: 0 1.25rem;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 640px) and (max-width: 767px) {
   .page-container {
     max-width: 520px;
     padding: 0 1.5rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .page-container {
-    max-width: 540px; /* Keeps the focused Aura design elegant on desktop */
   }
 }
 
@@ -179,7 +173,7 @@ img {
   padding: 0 1.25rem;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 640px) and (max-width: 767px) {
   .navbar-wrapper {
     max-width: 520px;
     padding: 0 1.5rem;
@@ -1720,3 +1714,807 @@ body.modal-open .mobile-sticky-bottom-bar {
   padding: 3px 8px;
   border-radius: var(--radius-pill);
 }
+
+/* ═════════════════════════════════════════════════════════════════════
+   14. IPAD & TABLET OPTIMIZATION (768px - 1023px)
+   Balanced wide layout, side-by-side hero CTAs, 3-col features, 2-col trust.
+   Zero changes to mobile (< 768px).
+   ═════════════════════════════════════════════════════════════════════ */
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* Layout Containers */
+  .page-container {
+    max-width: 780px;
+    padding: 0 1.75rem;
+  }
+
+  .navbar-wrapper {
+    max-width: 780px;
+    padding: 0 1.75rem;
+  }
+
+  .navbar-pill-glass {
+    padding: 0.75rem 1.6rem;
+  }
+
+  /* Navigation Links on Tablet */
+  .nav-links-desktop {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .nav-link-item {
+    font-size: 0.9rem;
+  }
+
+  .nav-orders-btn-pill {
+    font-size: 0.84rem;
+    padding: 6px 14px;
+  }
+
+  .nav-hamburger-btn,
+  .nav-mobile-orders-icon {
+    display: none !important;
+  }
+
+  .mobile-menu-drawer {
+    display: none !important;
+  }
+
+  /* Hide bottom thumb bar on tablet */
+  .mobile-sticky-bottom-bar {
+    display: none !important;
+  }
+
+  /* Ambient Mesh Scaling */
+  .blob-blue {
+    width: 38rem;
+    height: 38rem;
+  }
+
+  .blob-cyan {
+    width: 32rem;
+    height: 32rem;
+  }
+
+  .blob-indigo {
+    width: 40rem;
+    height: 40rem;
+  }
+
+  /* Screen 1: Hero Section */
+  .screen-hero {
+    align-items: center;
+    text-align: center;
+    padding-top: 2.75rem;
+    padding-bottom: 4.5rem;
+  }
+
+  .hero-top-tag-wrap {
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-headline-wrap {
+    max-width: 680px;
+    margin-bottom: 2rem;
+  }
+
+  .hero-main-title {
+    font-size: 3.2rem;
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+    text-align: center;
+  }
+
+  .hero-main-sub {
+    font-size: 1.12rem;
+    line-height: 1.6;
+    text-align: center;
+    max-width: 620px;
+    margin: 0 auto;
+  }
+
+  .hero-visual-center-wrap {
+    margin: 1.5rem 0 2.5rem;
+  }
+
+  .hero-orb-outer {
+    width: 360px;
+    height: 360px;
+    padding: 1rem;
+  }
+
+  .gemini-star-halo {
+    width: 180px;
+    height: 180px;
+  }
+
+  .gemini-star-svg {
+    width: 145px;
+    height: 145px;
+  }
+
+  .gemini-brand-text {
+    font-size: 2.6rem;
+  }
+
+  .hero-orb-floating-badge {
+    bottom: 1rem;
+    left: 0.5rem;
+    padding: 0.95rem 1.35rem;
+  }
+
+  .floating-badge-val {
+    font-size: 1.55rem;
+  }
+
+  .hero-cta-group {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    max-width: 480px;
+    margin: 0 auto 1.5rem;
+    width: 100%;
+  }
+
+  .hero-cta-group .btn-gradient-pill,
+  .hero-cta-group .btn-glass-pill {
+    width: auto;
+    flex: 1;
+    min-height: 52px;
+  }
+
+  .hero-micro-trust {
+    justify-content: center;
+    gap: 0.85rem;
+    font-size: 0.84rem;
+  }
+
+  /* Screen 2: Product & Features */
+  .card-the-product {
+    padding: 2.75rem 2.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .card-product-title {
+    font-size: 2.4rem;
+  }
+
+  .card-product-desc {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    max-width: 680px;
+  }
+
+  .product-metrics-grid {
+    padding-top: 1.75rem;
+    max-width: 650px;
+  }
+
+  .metric-num {
+    font-size: 1.75rem;
+  }
+
+  .metric-lbl {
+    font-size: 0.85rem;
+  }
+
+  .features-pill-stack {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.15rem;
+  }
+
+  .feature-pill-card {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    padding: 1.75rem 1.4rem;
+    gap: 1.15rem;
+  }
+
+  .feature-icon-circle {
+    width: 50px;
+    height: 50px;
+  }
+
+  .feature-pill-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .feature-pill-desc {
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+
+  /* Screen 3: Trust & Reviews */
+  .trust-cards-stack {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+  }
+
+  .trust-rating-card {
+    padding: 2rem;
+  }
+
+  .rating-big-num {
+    font-size: 3.8rem;
+  }
+
+  .trust-guarantee-card {
+    padding: 2rem;
+  }
+
+  .trust-quote-card {
+    padding: 2rem;
+  }
+
+  .quote-text {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .telegram-banner-pill {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .tg-banner-left {
+    gap: 1.15rem;
+  }
+
+  .tg-banner-title {
+    font-size: 1.1rem;
+  }
+
+  .tg-banner-sub {
+    font-size: 0.88rem;
+  }
+
+  .tg-banner-link-btn {
+    padding: 0.75rem 1.5rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* Big Bottom CTA */
+  .card-big-cta {
+    padding: 4rem 2.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .big-cta-title {
+    font-size: 2.85rem;
+  }
+
+  .big-cta-sub {
+    font-size: 1.1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .big-cta-price {
+    font-size: 4.25rem;
+  }
+
+  .btn-big-cta,
+  .btn-big-tg {
+    max-width: 440px;
+    width: 100%;
+  }
+
+  /* FAQ & Footer */
+  .faq-container-wrap {
+    max-width: 740px;
+    margin: 0 auto 4rem;
+  }
+
+  .faq-section-title {
+    font-size: 2.15rem;
+    text-align: center;
+  }
+
+  .footer-pill-glass {
+    padding: 1.5rem 2.25rem;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-brand-wrap {
+    margin-bottom: 0;
+  }
+}
+
+/* ═════════════════════════════════════════════════════════════════════
+   15. DESKTOP OPTIMIZATION (min-width: 1024px)
+   Luxury 2-column SaaS Hero, 3-column Bento Features, 2x2 Trust Grid,
+   Full Pill Navigation, Centerpiece Bottom CTA.
+   Zero changes to mobile (< 768px).
+   ═════════════════════════════════════════════════════════════════════ */
+@media (min-width: 1024px) {
+  /* Layout Containers */
+  .page-container {
+    max-width: 1160px;
+    padding: 0 2rem;
+  }
+
+  .navbar-wrapper {
+    max-width: 1160px;
+    padding: 0 2rem;
+    top: 1.25rem;
+  }
+
+  .navbar-pill-glass {
+    padding: 0.85rem 2rem;
+  }
+
+  .nav-brand-img {
+    height: 32px;
+    max-width: 150px;
+  }
+
+  /* Full Desktop Navbar */
+  .nav-links-desktop {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .nav-link-item {
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  .nav-orders-btn-pill {
+    font-size: 0.88rem;
+    padding: 7px 16px;
+  }
+
+  .nav-actions-right {
+    gap: 0.75rem;
+  }
+
+  .nav-tg-btn-icon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .nav-hamburger-btn,
+  .nav-mobile-orders-icon {
+    display: none !important;
+  }
+
+  .mobile-menu-drawer {
+    display: none !important;
+  }
+
+  /* Hide mobile-only sticky bar on desktop */
+  .mobile-sticky-bottom-bar {
+    display: none !important;
+  }
+
+  /* Expansive Ambient Background Blobs */
+  .blob-blue {
+    width: 48rem;
+    height: 48rem;
+    top: -12rem;
+    right: -12rem;
+  }
+
+  .blob-cyan {
+    width: 42rem;
+    height: 42rem;
+    left: -14rem;
+  }
+
+  .blob-indigo {
+    width: 50rem;
+    height: 50rem;
+    right: -14rem;
+  }
+
+  .blob-amber {
+    width: 38rem;
+    height: 38rem;
+  }
+
+  /* Screen 1: Luxury 2-Column Hero Grid */
+  .screen-hero {
+    display: grid;
+    grid-template-columns: 1.18fr 0.92fr;
+    grid-template-areas:
+      "tag    visual"
+      "head   visual"
+      "cta    visual"
+      "trust  visual";
+    align-items: center;
+    column-gap: 4.5rem;
+    row-gap: 1.5rem;
+    padding-top: 5rem;
+    padding-bottom: 6.5rem;
+    text-align: left;
+  }
+
+  .hero-top-tag-wrap {
+    grid-area: tag;
+    margin-bottom: 0;
+  }
+
+  .hero-headline-wrap {
+    grid-area: head;
+    margin-bottom: 0;
+  }
+
+  .hero-main-title {
+    font-size: 3.85rem;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    margin-bottom: 1.25rem;
+    text-align: left;
+  }
+
+  .hero-main-sub {
+    font-size: 1.16rem;
+    line-height: 1.65;
+    max-width: 540px;
+    text-align: left;
+    color: var(--text-muted);
+  }
+
+  .hero-visual-center-wrap {
+    grid-area: visual;
+    margin: 0;
+    justify-content: center;
+  }
+
+  .hero-orb-outer {
+    width: 420px;
+    height: 420px;
+    padding: 1.25rem;
+    box-shadow: 0 40px 90px -15px rgba(37, 99, 235, 0.45), 0 0 1px 1px rgba(255, 255, 255, 0.7) inset;
+  }
+
+  .gemini-star-halo {
+    width: 200px;
+    height: 200px;
+    filter: blur(16px);
+  }
+
+  .gemini-star-svg {
+    width: 165px;
+    height: 165px;
+  }
+
+  .gemini-brand-text {
+    font-size: 2.9rem;
+    margin-top: 0.5rem;
+  }
+
+  .gemini-tier-pill {
+    padding: 5px 14px;
+    font-size: 0.82rem;
+    margin-top: 0.5rem;
+  }
+
+  .hero-orb-floating-badge {
+    bottom: 1.5rem;
+    left: -1rem;
+    padding: 1.1rem 1.55rem;
+    border-radius: 1.6rem;
+  }
+
+  .floating-badge-val {
+    font-size: 1.7rem;
+  }
+
+  .floating-badge-sub {
+    font-size: 0.78rem;
+  }
+
+  .hero-cta-group {
+    grid-area: cta;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.15rem;
+    max-width: 520px;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-cta-group .btn-gradient-pill,
+  .hero-cta-group .btn-glass-pill {
+    width: auto;
+    flex: 1;
+    padding: 1.1rem 1.85rem;
+    font-size: 1.05rem;
+    min-height: 56px;
+  }
+
+  .hero-micro-trust {
+    grid-area: trust;
+    justify-content: flex-start;
+    gap: 0.85rem;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+  }
+
+  /* Screen 2: Product & Features */
+  .screen-product-features {
+    padding-bottom: 4.5rem;
+  }
+
+  .card-the-product {
+    padding: 3.5rem 3.5rem;
+    margin-bottom: 2.75rem;
+    border-radius: var(--radius-card);
+  }
+
+  .card-product-title {
+    font-size: 2.85rem;
+    letter-spacing: -0.035em;
+    margin-bottom: 1rem;
+  }
+
+  .card-product-desc {
+    font-size: 1.12rem;
+    line-height: 1.65;
+    max-width: 850px;
+    margin-bottom: 2.5rem;
+  }
+
+  .product-metrics-grid {
+    padding-top: 2rem;
+    max-width: 800px;
+  }
+
+  .metric-num {
+    font-size: 2.1rem;
+  }
+
+  .metric-lbl {
+    font-size: 0.9rem;
+  }
+
+  .metric-divider {
+    height: 48px;
+    margin: 0 1.5rem;
+  }
+
+  .section-label-wrap {
+    margin: 4.5rem 0 1.5rem;
+  }
+
+  .features-pill-stack {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.75rem;
+  }
+
+  .feature-pill-card {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    padding: 2.25rem 2rem;
+    gap: 1.35rem;
+    border-radius: var(--radius-card);
+  }
+
+  .feature-icon-circle {
+    width: 56px;
+    height: 56px;
+  }
+
+  .feature-pill-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.45rem;
+  }
+
+  .feature-pill-desc {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  /* Screen 3: Trust, Reviews & Bottom CTA */
+  .screen-trust-cta {
+    padding-bottom: 3.5rem;
+  }
+
+  .trust-cards-stack {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.75rem;
+    margin-bottom: 2.75rem;
+  }
+
+  .trust-rating-card {
+    padding: 2.5rem 2.75rem;
+    border-radius: var(--radius-card);
+  }
+
+  .rating-big-num {
+    font-size: 4.5rem;
+  }
+
+  .stars-gold {
+    font-size: 1.5rem;
+  }
+
+  .rating-customers-text {
+    font-size: 0.95rem;
+  }
+
+  .trust-guarantee-card {
+    padding: 2.5rem 2.75rem;
+    border-radius: var(--radius-card);
+  }
+
+  .trust-icon-circle {
+    width: 54px;
+    height: 54px;
+  }
+
+  .trust-card-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .trust-card-desc {
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+
+  .trust-quote-card {
+    padding: 2.5rem 2.75rem;
+    border-radius: var(--radius-card);
+  }
+
+  .quote-text {
+    font-size: 1.08rem;
+    line-height: 1.65;
+    margin-bottom: 1.25rem;
+  }
+
+  .quote-author-name {
+    font-size: 0.98rem;
+  }
+
+  .telegram-banner-pill {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 2.75rem;
+    margin-bottom: 4.5rem;
+    border-radius: var(--radius-card);
+  }
+
+  .tg-banner-left {
+    gap: 1.5rem;
+  }
+
+  .tg-icon-circle {
+    width: 52px;
+    height: 52px;
+  }
+
+  .tg-banner-title {
+    font-size: 1.2rem;
+  }
+
+  .tg-banner-sub {
+    font-size: 0.95rem;
+  }
+
+  .tg-banner-link-btn {
+    padding: 0.85rem 1.75rem;
+    font-size: 0.95rem;
+    white-space: nowrap;
+  }
+
+  /* Big Bottom CTA */
+  .card-big-cta {
+    padding: 5rem 3.5rem;
+    margin-bottom: 5rem;
+    border-radius: 2.5rem;
+  }
+
+  .big-cta-title {
+    font-size: 3.25rem;
+    margin-bottom: 0.65rem;
+  }
+
+  .big-cta-sub {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .big-cta-price-row {
+    margin: 0.5rem 0 2rem;
+  }
+
+  .big-cta-price {
+    font-size: 4.75rem;
+  }
+
+  .big-cta-badge-save {
+    font-size: 0.95rem;
+    padding: 5px 12px;
+  }
+
+  .btn-big-cta {
+    max-width: 440px;
+    min-height: 58px;
+    font-size: 1.12rem;
+    margin-bottom: 1rem;
+  }
+
+  .btn-big-tg {
+    max-width: 440px;
+    min-height: 54px;
+    font-size: 1.05rem;
+  }
+
+  .big-cta-foot-note {
+    font-size: 0.88rem;
+    margin-top: 1.5rem;
+  }
+
+  /* FAQ Accordion */
+  .faq-container-wrap {
+    max-width: 900px;
+    margin: 0 auto 5rem;
+  }
+
+  .faq-section-title {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .faq-accordion-list {
+    gap: 1rem;
+  }
+
+  .faq-card-summary {
+    padding: 1.45rem 2rem;
+    font-size: 1.12rem;
+  }
+
+  .faq-card-answer {
+    padding: 0 2rem 1.6rem;
+    font-size: 1.02rem;
+    line-height: 1.65;
+  }
+
+  /* Full Pill Footer */
+  .footer-pill-glass {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.75rem 2.5rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .footer-brand-wrap {
+    margin-bottom: 0;
+  }
+
+  .footer-brand-img {
+    height: 34px;
+  }
+
+  .footer-links-row {
+    gap: 2rem;
+    font-size: 0.92rem;
+  }
+
+  .footer-copy-text {
+    font-size: 0.85rem;
+  }
+}
+
