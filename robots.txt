@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /order-success.html
 
-Sitemap: https://zwch.store/sitemap.xml
+Sitemap: https://www.zwch.store/sitemap.xml
