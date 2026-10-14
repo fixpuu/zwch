@@ -411,7 +411,7 @@ const ZWCHShop = (() => {
   let _products = [];
   let _selectedProduct = {
     id: 1,
-    name: "Google Gemini Pro 18 Mesi \u2014 Licenza Ufficiale",
+    name: "Google Gemini 4 Pro 18 Mesi + 5TB Storage \u2014 Licenza Ufficiale",
     price_cents: 999,
     stock_count: 3
   };
@@ -488,7 +488,7 @@ const ZWCHShop = (() => {
 
   function openBuyModal(productId = 1) {
     if (!_products || _products.length === 0) {
-      _selectedProduct = { id: 1, name: "Google Gemini Pro 18 Mesi \u2014 Licenza Ufficiale", price_cents: 999 };
+      _selectedProduct = { id: 1, name: "Google Gemini 4 Pro 18 Mesi + 5TB Storage \u2014 Licenza Ufficiale", price_cents: 999 };
     } else {
       _selectedProduct = _products.find(p => p.id === productId) || _products[0];
     }
