@@ -607,11 +607,11 @@ const ZWCHShop = (() => {
         window.location.href = json.checkout_url;
       } else {
         _setBuyLoading(false);
-        alert(json.error || 'Something went wrong. Please try again.');
+        alert(json.error || 'Qualcosa è andato storto. Riprova.');
       }
     } catch {
       _setBuyLoading(false);
-      alert('Network error. Please check your connection.');
+      alert('Errore di rete. Controlla la tua connessione.');
     }
     return false;
   }
@@ -687,11 +687,11 @@ const ZWCHAuth = (() => {
         _initOtpInputs();
         setTimeout(() => document.getElementById('otp-0').focus(), 100);
       } else {
-        errEl.textContent = json.error || 'Error sending code. Try again.';
+        errEl.textContent = json.error || "Errore durante l'invio del codice. Riprova.";
         errEl.classList.remove('hidden');
       }
     } catch {
-      errEl.textContent = 'Network error. Please retry.';
+      errEl.textContent = 'Errore di rete. Riprova.';
       errEl.classList.remove('hidden');
     }
     _setOtpBtnLoading(false);
@@ -705,7 +705,7 @@ const ZWCHAuth = (() => {
     errEl.classList.add('hidden');
 
     if (code.length < 6) {
-      errEl.textContent = 'Please enter all 6 digits.';
+      errEl.textContent = 'Inserisci tutte le 6 cifre.';
       errEl.classList.remove('hidden');
       return false;
     }
@@ -725,13 +725,13 @@ const ZWCHAuth = (() => {
         ZWCHModal.close('modal-auth');
         ZWCHOrders.open(json.email);
       } else {
-        errEl.textContent = json.error || 'Invalid code. Try again.';
+        errEl.textContent = json.error || 'Codice non valido. Riprova.';
         errEl.classList.remove('hidden');
         _clearOtpInputs();
         setTimeout(() => document.getElementById('otp-0').focus(), 50);
       }
     } catch {
-      errEl.textContent = 'Network error. Please retry.';
+      errEl.textContent = 'Errore di rete. Riprova.';
       errEl.classList.remove('hidden');
     }
     _setVerifyBtnLoading(false);
@@ -799,7 +799,7 @@ const ZWCHAuth = (() => {
 const ZWCHOrders = (() => {
   async function open(email) {
     document.getElementById('orders-email-display').textContent = email || '';
-    document.getElementById('orders-list').innerHTML = '<div class="orders-loading">Loading your orders...</div>';
+    document.getElementById('orders-list').innerHTML = '<div class="orders-loading">Caricamento ordini in corso...</div>';
     ZWCHModal.open('modal-orders');
 
     const token = localStorage.getItem(TOKEN_KEY);
@@ -819,19 +819,19 @@ const ZWCHOrders = (() => {
       _renderOrders(json.data || []);
     } catch {
       document.getElementById('orders-list').innerHTML =
-        '<div class="orders-loading">Could not load orders. Please try again.</div>';
+        '<div class="orders-loading">Impossibile caricare gli ordini. Riprova.</div>';
     }
   }
 
   function _renderOrders(orders) {
     const container = document.getElementById('orders-list');
     if (!orders.length) {
-      container.innerHTML = '<div class="orders-empty">No orders yet.<br/><small>Your purchases will appear here after payment.</small></div>';
+      container.innerHTML = '<div class="orders-empty">Nessun ordine trovato.<br/><small>I tuoi acquisti appariranno qui dopo il pagamento.</small></div>';
       return;
     }
 
     container.innerHTML = orders.map(o => {
-      const date = new Date(o.created_at).toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' });
+      const date = new Date(o.created_at).toLocaleDateString('it-IT', { day:'2-digit', month:'short', year:'numeric' });
       const amount = `\u20ac${(o.amount_cents / 100).toFixed(2)}`;
       const links = o.links || [];
 
@@ -839,16 +839,16 @@ const ZWCHOrders = (() => {
         ? links.map(link => `
           <div class="order-card__key-wrap">
             <span class="order-card__key" title="${_esc(link)}">${_esc(link)}</span>
-            <button class="btn-copy-key" onclick="ZWCHOrders.copyKey(this, '${_esc(link).replace(/'/g, "\\'")}')">📋 Copy</button>
+            <button class="btn-copy-key" onclick="ZWCHOrders.copyKey(this, '${_esc(link).replace(/'/g, "\\'")}')">📋 Copia</button>
           </div>`).join('')
-        : '<div class="order-card__key-wrap"><span class="order-card__key" style="color:var(--text-muted);">Key will be sent to your email.</span></div>';
+        : '<div class="order-card__key-wrap"><span class="order-card__key" style="color:var(--text-muted);">La licenza verrà inviata alla tua email.</span></div>';
 
       return `
         <div class="order-card">
           <div class="order-card__header">
             <div>
               <div class="order-card__name">${_esc(o.product_name)}</div>
-              <div class="order-card__meta">Order #${o.order_id} &nbsp;\u00b7&nbsp; ${date}</div>
+              <div class="order-card__meta">Ordine #${o.order_id} &nbsp;\u00b7&nbsp; ${date}</div>
             </div>
             <div class="order-card__amount">${amount} ${(o.currency || 'EUR').toUpperCase()}</div>
           </div>
@@ -859,9 +859,9 @@ const ZWCHOrders = (() => {
 
   function copyKey(btn, text) {
     navigator.clipboard.writeText(text).then(() => {
-      btn.textContent = 'Copied!';
+      btn.textContent = 'Copiato!';
       btn.classList.add('copied');
-      setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+      setTimeout(() => { btn.textContent = 'Copia'; btn.classList.remove('copied'); }, 2000);
     });
   }
 

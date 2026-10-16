@@ -478,27 +478,27 @@
   <!-- ═══════════════════════════════════════════════════════ -->
   <div class="modal-overlay" id="modal-buy" role="dialog" aria-modal="true" aria-labelledby="modal-buy-title">
     <div class="modal-box">
-      <button class="modal-close" onclick="ZWCHModal.close('modal-buy')" aria-label="Close">&times;</button>
+      <button class="modal-close" onclick="ZWCHModal.close('modal-buy')" aria-label="Chiudi">&times;</button>
       <div class="modal-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="32" height="32"><rect x="2" y="5" width="20" height="14" rx="2" ry="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
       </div>
-      <h2 class="modal-title" id="modal-buy-title">Complete your purchase</h2>
-      <p class="modal-sub" id="modal-buy-product-name">Loading product...</p>
+      <h2 class="modal-title" id="modal-buy-title">Completa il tuo acquisto</h2>
+      <p class="modal-sub" id="modal-buy-product-name">Caricamento prodotto...</p>
       <div class="modal-price-row">
         <span class="modal-price" id="modal-buy-price">&mdash;</span>
-        <span class="modal-price-label">one-time payment</span>
+        <span class="modal-price-label">pagamento una tantum</span>
       </div>
       <form id="form-buy" onsubmit="return ZWCHShop.submitBuy(event)" novalidate>
-        <label class="modal-label" for="buy-email">Your email address</label>
+        <label class="modal-label" for="buy-email">Il tuo indirizzo email</label>
         <input class="modal-input" type="email" id="buy-email" name="email"
-               placeholder="you@example.com" autocomplete="email" required />
-        <p class="modal-input-hint">Your key and order receipt will be sent here.</p>
+               placeholder="nome@esempio.com" autocomplete="email" required />
+        <p class="modal-input-hint">La tua licenza e la ricevuta dell'ordine verranno inviate qui.</p>
         <button class="btn btn-primary modal-submit" id="btn-buy-submit" type="submit">
-          <span id="btn-buy-label">Pay with Stripe &#8594;</span>
-          <span id="btn-buy-loading" class="hidden">Processing...</span>
+          <span id="btn-buy-label">Paga con Stripe &#8594;</span>
+          <span id="btn-buy-loading" class="hidden">Reindirizzamento a Stripe...</span>
         </button>
       </form>
-      <p class="modal-footer-note">Secure payment by Stripe. ZWCH never stores your card details.</p>
+      <p class="modal-footer-note">Pagamento sicuro con Stripe. ZWCH non memorizza mai i dati della tua carta.</p>
     </div>
   </div>
 
@@ -507,22 +507,22 @@
   <!-- ═══════════════════════════════════════════════════════ -->
   <div class="modal-overlay" id="modal-auth" role="dialog" aria-modal="true" aria-labelledby="modal-auth-title">
     <div class="modal-box">
-      <button class="modal-close" onclick="ZWCHModal.close('modal-auth')" aria-label="Close">&times;</button>
+      <button class="modal-close" onclick="ZWCHModal.close('modal-auth')" aria-label="Chiudi">&times;</button>
 
       <!-- Step 1: email -->
       <div id="auth-step-1">
         <div class="modal-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="32" height="32"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
         </div>
-        <h2 class="modal-title" id="modal-auth-title">Sign in to ZWCH</h2>
-        <p class="modal-sub">Enter your email and we'll send you a one-time code. No password needed.</p>
+        <h2 class="modal-title" id="modal-auth-title">Accedi a ZWCH</h2>
+        <p class="modal-sub">Inserisci la tua email e ti invieremo un codice monouso. Nessuna password richiesta.</p>
         <form id="form-auth-email" onsubmit="return ZWCHAuth.sendOtp(event)" novalidate>
-          <label class="modal-label" for="auth-email">Email address</label>
+          <label class="modal-label" for="auth-email">Indirizzo email</label>
           <input class="modal-input" type="email" id="auth-email" name="email"
-                 placeholder="you@example.com" autocomplete="email" required />
+                 placeholder="nome@esempio.com" autocomplete="email" required />
           <button class="btn btn-primary modal-submit" id="btn-send-otp" type="submit">
-            <span id="btn-otp-label">Send Code &#8594;</span>
-            <span id="btn-otp-loading" class="hidden">Sending...</span>
+            <span id="btn-otp-label">Invia Codice &#8594;</span>
+            <span id="btn-otp-loading" class="hidden">Invio in corso...</span>
           </button>
         </form>
         <p id="auth-email-error" class="modal-error hidden"></p>
@@ -533,24 +533,24 @@
         <div class="modal-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="32" height="32"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
         </div>
-        <h2 class="modal-title">Enter your code</h2>
-        <p class="modal-sub">We sent a 6-digit code to <strong id="auth-email-display"></strong>.<br/>Valid for 10 minutes.</p>
+        <h2 class="modal-title">Inserisci il codice</h2>
+        <p class="modal-sub">Abbiamo inviato un codice a 6 cifre a <strong id="auth-email-display"></strong>.<br/>Valido per 10 minuti.</p>
         <form id="form-auth-otp" onsubmit="return ZWCHAuth.verifyOtp(event)" novalidate>
           <div class="otp-inputs" id="otp-inputs">
-            <input class="otp-digit" type="text" inputmode="numeric" maxlength="1" id="otp-0" aria-label="Digit 1" />
-            <input class="otp-digit" type="text" inputmode="numeric" maxlength="1" id="otp-1" aria-label="Digit 2" />
-            <input class="otp-digit" type="text" inputmode="numeric" maxlength="1" id="otp-2" aria-label="Digit 3" />
-            <input class="otp-digit" type="text" inputmode="numeric" maxlength="1" id="otp-3" aria-label="Digit 4" />
-            <input class="otp-digit" type="text" inputmode="numeric" maxlength="1" id="otp-4" aria-label="Digit 5" />
-            <input class="otp-digit" type="text" inputmode="numeric" maxlength="1" id="otp-5" aria-label="Digit 6" />
+            <input class="otp-digit" type="text" inputmode="numeric" maxlength="1" id="otp-0" aria-label="Cifra 1" />
+            <input class="otp-digit" type="text" inputmode="numeric" maxlength="1" id="otp-1" aria-label="Cifra 2" />
+            <input class="otp-digit" type="text" inputmode="numeric" maxlength="1" id="otp-2" aria-label="Cifra 3" />
+            <input class="otp-digit" type="text" inputmode="numeric" maxlength="1" id="otp-3" aria-label="Cifra 4" />
+            <input class="otp-digit" type="text" inputmode="numeric" maxlength="1" id="otp-4" aria-label="Cifra 5" />
+            <input class="otp-digit" type="text" inputmode="numeric" maxlength="1" id="otp-5" aria-label="Cifra 6" />
           </div>
           <button class="btn btn-primary modal-submit" id="btn-verify-otp" type="submit">
-            <span id="btn-verify-label">Verify &amp; Sign In</span>
-            <span id="btn-verify-loading" class="hidden">Verifying...</span>
+            <span id="btn-verify-label">Verifica e Accedi</span>
+            <span id="btn-verify-loading" class="hidden">Verifica in corso...</span>
           </button>
         </form>
         <p id="auth-otp-error" class="modal-error hidden"></p>
-        <button class="modal-link-btn" onclick="ZWCHAuth.backToStep1()">&#8592; Use a different email</button>
+        <button class="modal-link-btn" onclick="ZWCHAuth.backToStep1()">&#8592; Usa un'altra email</button>
       </div>
     </div>
   </div>
@@ -560,19 +560,19 @@
   <!-- ═══════════════════════════════════════════════════════ -->
   <div class="modal-overlay" id="modal-orders" role="dialog" aria-modal="true" aria-labelledby="modal-orders-title">
     <div class="modal-box modal-box--wide">
-      <button class="modal-close" onclick="ZWCHModal.close('modal-orders')" aria-label="Close">&times;</button>
+      <button class="modal-close" onclick="ZWCHModal.close('modal-orders')" aria-label="Chiudi">&times;</button>
       <div class="orders-header">
         <div class="modal-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="32" height="32"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
         </div>
         <div>
-          <h2 class="modal-title" id="modal-orders-title">My Orders</h2>
+          <h2 class="modal-title" id="modal-orders-title">I Miei Ordini</h2>
           <p class="modal-sub" id="orders-email-display" style="margin:0;"></p>
         </div>
-        <button class="modal-link-btn orders-logout" onclick="ZWCHAuth.logout()">Sign out</button>
+        <button class="modal-link-btn orders-logout" onclick="ZWCHAuth.logout()">Disconnetti</button>
       </div>
       <div id="orders-list">
-        <div class="orders-loading">Loading your orders...</div>
+        <div class="orders-loading">Caricamento ordini in corso...</div>
       </div>
     </div>
   </div>
