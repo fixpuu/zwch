@@ -83,6 +83,80 @@ window.trackBotClick = trackBotClick;
   setInterval(tick, 1000);
 })();
 
+// ── Giveaway Countdown & Live Status ──────────────────
+(function initGiveaway() {
+  const DURATION_MS = 7 * 24 * 60 * 60 * 1000;
+  const STORAGE_KEY = 'zwch_giveaway_expiry';
+  const API_ENDPOINT = 'https://bot.zwch.store/api/giveaway/status';
+
+  function getLocalTarget() {
+    let stored = localStorage.getItem(STORAGE_KEY);
+    let expiry = stored ? parseInt(stored, 10) : NaN;
+    if (isNaN(expiry) || Date.now() >= expiry) {
+      expiry = Date.now() + DURATION_MS;
+      localStorage.setItem(STORAGE_KEY, expiry);
+    }
+    return expiry;
+  }
+
+  let targetTime = getLocalTarget();
+
+  // Try to fetch official backend target time
+  if (typeof fetch === 'function') {
+    fetch(API_ENDPOINT)
+      .then(r => r.json())
+      .then(res => {
+        if (res && res.data && res.data.end_time) {
+          const parsed = new Date(res.data.end_time).getTime();
+          if (!isNaN(parsed) && parsed > Date.now()) {
+            targetTime = parsed;
+            localStorage.setItem(STORAGE_KEY, targetTime);
+          }
+        }
+      })
+      .catch(() => {});
+  }
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+
+  function update() {
+    const now = Date.now();
+    let diff = targetTime - now;
+    if (diff <= 0) {
+      targetTime = Date.now() + DURATION_MS;
+      localStorage.setItem(STORAGE_KEY, targetTime);
+      diff = DURATION_MS;
+    }
+
+    const totalSecs = Math.floor(diff / 1000);
+    const d = pad(Math.floor(totalSecs / 86400));
+    const h = pad(Math.floor((totalSecs % 86400) / 3600));
+    const m = pad(Math.floor((totalSecs % 3600) / 60));
+    const s = pad(totalSecs % 60);
+
+    // Update announcement bar
+    const topD = document.getElementById('gw-top-days');
+    const topH = document.getElementById('gw-top-hours');
+    const topM = document.getElementById('gw-top-mins');
+    if (topD) topD.textContent = d;
+    if (topH) topH.textContent = h;
+    if (topM) topM.textContent = m;
+
+    // Update main section boxes
+    const boxD = document.getElementById('gw-box-days');
+    const boxH = document.getElementById('gw-box-hours');
+    const boxM = document.getElementById('gw-box-mins');
+    const boxS = document.getElementById('gw-box-secs');
+    if (boxD) boxD.textContent = d;
+    if (boxH) boxH.textContent = h;
+    if (boxM) boxM.textContent = m;
+    if (boxS) boxS.textContent = s;
+  }
+
+  update();
+  setInterval(update, 1000);
+})();
+
 // ── Navbar scroll ─────────────────────────────────────
 (function initNavbar() {
   const navbar = document.getElementById('navbar');
@@ -411,7 +485,7 @@ const ZWCHShop = (() => {
   let _products = [];
   let _selectedProduct = {
     id: 1,
-    name: "Google Gemini 4 Pro 18 Mesi + 5TB Storage \u2014 Licenza Ufficiale",
+    name: "Google Gemini Argon 18 Mesi + 5TB Storage \u2014 Licenza Ufficiale",
     price_cents: 999,
     stock_count: 3
   };
@@ -488,7 +562,7 @@ const ZWCHShop = (() => {
 
   function openBuyModal(productId = 1) {
     if (!_products || _products.length === 0) {
-      _selectedProduct = { id: 1, name: "Google Gemini 4 Pro 18 Mesi + 5TB Storage \u2014 Licenza Ufficiale", price_cents: 999 };
+      _selectedProduct = { id: 1, name: "Google Gemini Argon 18 Mesi + 5TB Storage \u2014 Licenza Ufficiale", price_cents: 999 };
     } else {
       _selectedProduct = _products.find(p => p.id === productId) || _products[0];
     }
