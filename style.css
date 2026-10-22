@@ -2675,8 +2675,56 @@ body.modal-open .mobile-sticky-bottom-bar {
   font-size: 1.08rem;
   color: var(--text-body);
   max-width: 680px;
-  margin: 0 auto 2.25rem;
+  margin: 0 auto 1.75rem;
   line-height: 1.6;
+}
+
+/* Giveaway Notice Banner (Extension Alert) */
+.giveaway-notice-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(124, 58, 237, 0.08));
+  border: 1px solid rgba(245, 158, 11, 0.38);
+  border-radius: var(--radius-card-sm);
+  padding: 1.25rem 1.6rem;
+  margin: 0 auto 2.25rem;
+  max-width: 760px;
+  text-align: left;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 24px -6px rgba(245, 158, 11, 0.12);
+}
+
+.giveaway-notice-icon {
+  font-size: 1.85rem;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+
+.giveaway-notice-content {
+  flex: 1;
+}
+
+.giveaway-notice-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #b45309;
+  margin: 0 0 0.35rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.giveaway-notice-text {
+  font-size: 0.93rem;
+  color: var(--text-main);
+  line-height: 1.55;
+  margin: 0;
+}
+
+.giveaway-notice-text strong {
+  color: #1e1b4b;
 }
 
 /* Big Live Countdown */
@@ -2745,6 +2793,11 @@ body.modal-open .mobile-sticky-bottom-bar {
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(254, 243, 199, 0.35));
 }
 
+.giveaway-step-card.ref-card {
+  border-color: rgba(16, 185, 129, 0.4);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(209, 250, 229, 0.35));
+}
+
 .step-badge-tag {
   display: inline-block;
   font-size: 0.74rem;
@@ -2756,6 +2809,7 @@ body.modal-open .mobile-sticky-bottom-bar {
 }
 
 .tag-blue { background: rgba(37, 99, 235, 0.12); color: #2563eb; }
+.tag-emerald { background: rgba(16, 185, 129, 0.14); color: #059669; }
 .tag-purple { background: rgba(124, 58, 237, 0.12); color: #7c3aed; }
 .tag-gold { background: rgba(245, 158, 11, 0.18); color: #b45309; }
 

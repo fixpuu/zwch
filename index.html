@@ -295,10 +295,10 @@
   <!-- TOP ANNOUNCEMENT BAR (Giveaway Promo) -->
   <aside class="announcement-bar" role="region" aria-label="Giveaway in corso">
     <div class="announcement-content">
-      <span class="announcement-tag">🎁 GIVEAWAY ATTIVO</span>
-      <span class="announcement-text">Vinci <strong>3 Licenze Google AI Pro 18 Mesi</strong> gratis!</span>
+      <span class="announcement-tag">🎁 GIVEAWAY PROROGATO (+7G)</span>
+      <span class="announcement-text">Prorogato di 1 settimana per pochi partecipanti! <strong>Invita i tuoi amici</strong> per guadagnare ticket extra.</span>
       <div class="announcement-timer" id="gw-top-timer" aria-label="Tempo rimasto">
-        <span id="gw-top-days">07</span>g <span id="gw-top-hours">00</span>h <span id="gw-top-mins">00</span>m
+        <span id="gw-top-days">07</span>g <span id="gw-top-hours">19</span>h <span id="gw-top-mins">00</span>m
       </div>
       <a href="https://t.me/zwchshope_bot?start=giveaway" target="_blank" rel="noopener" class="announcement-btn" onclick="trackBotClick('announcement_bar')">
         Partecipa Gratis &rarr;
@@ -532,14 +532,27 @@
     <section class="screen-giveaway" id="giveaway">
       <div class="giveaway-card-main glass-card">
         <div class="giveaway-badge-top">
-          <span>🎁 GIVEAWAY UFFICIALE &bull; 3 LICENZE IN PALIO</span>
+          <span>🎁 GIVEAWAY PROROGATO &bull; 3 LICENZE IN PALIO</span>
         </div>
         
         <h2 class="giveaway-title">Vinci 18 Mesi di Google AI Pro Gratis.</h2>
         <p class="giveaway-subtitle">
           Stiamo regalando <strong>3 licenze complete</strong> con Google Gemini Argon e 5TB di Cloud Storage. 
-          Partecipa subito con il bot Telegram e seguici sui social per accumulare biglietti extra!
+          Partecipa subito con il bot Telegram, invita amici e seguici sui social per accumulare biglietti extra!
         </p>
+
+        <!-- Extension Notice Banner -->
+        <div class="giveaway-notice-banner">
+          <div class="giveaway-notice-icon">📢</div>
+          <div class="giveaway-notice-content">
+            <h4 class="giveaway-notice-title">Countdown Prorogato di 1 Settimana!</h4>
+            <p class="giveaway-notice-text">
+              Poiché non è stata ancora raggiunta la quota minima di utenti necessaria per procedere con l'estrazione programmata, <strong>il giveaway è stato esteso di altri 7 giorni</strong>.
+              <br/>
+              🔥 <strong>Aumenta subito le tue possibilità di vittoria:</strong> Invita i tuoi amici a partecipare condividendo il tuo link Telegram! Riceverai <strong>+1 Ticket extra per ogni amico</strong> che si unisce al bot. Più amici inviti, più aumentano i tuoi ticket!
+            </p>
+          </div>
+        </div>
 
         <!-- Live Countdown -->
         <div class="giveaway-countdown-wrap">
@@ -548,7 +561,7 @@
             <span class="countdown-box-label">Giorni</span>
           </div>
           <div class="countdown-box">
-            <span class="countdown-box-num" id="gw-box-hours">00</span>
+            <span class="countdown-box-num" id="gw-box-hours">19</span>
             <span class="countdown-box-label">Ore</span>
           </div>
           <div class="countdown-box">
@@ -561,7 +574,7 @@
           </div>
         </div>
 
-        <!-- 3 Steps Grid -->
+        <!-- Steps Grid (4 Cards) -->
         <div class="giveaway-steps-grid">
           <!-- Step 1 -->
           <div class="giveaway-step-card">
@@ -570,14 +583,21 @@
             <p class="step-card-desc">Accedi su <strong>@zwchshope_bot</strong> e premi su Giveaway per ottenere all'istante il tuo primo ticket d'ingresso certificato.</p>
           </div>
 
-          <!-- Step 2 -->
+          <!-- Step 2 (Invita Amici) -->
+          <div class="giveaway-step-card ref-card">
+            <span class="step-badge-tag tag-emerald">+1 Biglietto per Amico 🔥</span>
+            <h3 class="step-card-title">Invita i Tuoi Amici</h3>
+            <p class="step-card-desc">Condividi il tuo link invito generato dal bot Telegram: ricevi <strong>+1 Ticket extra senza limiti</strong> per ogni amico che si unisce!</p>
+          </div>
+
+          <!-- Step 3 -->
           <div class="giveaway-step-card">
             <span class="step-badge-tag tag-purple">+2 Biglietti Social</span>
             <h3 class="step-card-title">Seguici su TikTok &amp; IG</h3>
             <p class="step-card-desc">Segui <strong>@zwchstore</strong> su TikTok e Instagram e registra il tuo username nel bot per ricevere +1 biglietto (follow verificato pre-estrazione).</p>
           </div>
 
-          <!-- Step 3 -->
+          <!-- Step 4 -->
           <div class="giveaway-step-card vip-card">
             <span class="step-badge-tag tag-gold">+5 Biglietti VIP</span>
             <h3 class="step-card-title">Acquista Subito la Licenza</h3>
@@ -590,7 +610,7 @@
           <div class="social-buttons-grid">
             <a href="https://t.me/zwchshope_bot?start=giveaway" target="_blank" rel="noopener" class="social-cta-btn btn-tg-primary" onclick="trackBotClick('giveaway_section_tg')">
               <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.34 14.082l-2.95-.924c-.642-.204-.656-.642.136-.953l11.57-4.461c.536-.194 1.006.131.798.477z"/></svg>
-              <span>Partecipa su Telegram &rarr;</span>
+              <span>Partecipa &amp; Invita Amici &rarr;</span>
             </a>
 
             <a href="https://www.tiktok.com/@zwchstore" target="_blank" rel="noopener" class="social-cta-btn btn-tiktok-pill">

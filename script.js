@@ -85,15 +85,16 @@ window.trackBotClick = trackBotClick;
 
 // ── Giveaway Countdown & Live Status ──────────────────
 (function initGiveaway() {
-  const DURATION_MS = 7 * 24 * 60 * 60 * 1000;
-  const STORAGE_KEY = 'zwch_giveaway_expiry';
+  const STORAGE_KEY = 'zwch_giveaway_expiry_v2';
   const API_ENDPOINT = 'https://bot.zwch.store/api/giveaway/status';
+  // Fallback ufficiale con proroga di 1 settimana: 30 Ottobre 2026 alle 15:35:53 UTC
+  const FALLBACK_END_TIME = new Date('2026-10-30T15:35:53.428Z').getTime();
 
   function getLocalTarget() {
     let stored = localStorage.getItem(STORAGE_KEY);
     let expiry = stored ? parseInt(stored, 10) : NaN;
     if (isNaN(expiry) || Date.now() >= expiry) {
-      expiry = Date.now() + DURATION_MS;
+      expiry = FALLBACK_END_TIME > Date.now() ? FALLBACK_END_TIME : (Date.now() + 7 * 24 * 60 * 60 * 1000);
       localStorage.setItem(STORAGE_KEY, expiry);
     }
     return expiry;
@@ -123,9 +124,7 @@ window.trackBotClick = trackBotClick;
     const now = Date.now();
     let diff = targetTime - now;
     if (diff <= 0) {
-      targetTime = Date.now() + DURATION_MS;
-      localStorage.setItem(STORAGE_KEY, targetTime);
-      diff = DURATION_MS;
+      diff = 0;
     }
 
     const totalSecs = Math.floor(diff / 1000);
