@@ -85,75 +85,130 @@ window.trackBotClick = trackBotClick;
 
 // ── Giveaway Countdown & Live Status ──────────────────
 (function initGiveaway() {
-  const STORAGE_KEY = 'zwch_giveaway_expiry_v2';
+  const STORAGE_KEY = 'zwch_giveaway_state_v3';
   const API_ENDPOINT = 'https://bot.zwch.store/api/giveaway/status';
-  // Fallback ufficiale con proroga di 1 settimana: 30 Ottobre 2026 alle 15:35:53 UTC
-  const FALLBACK_END_TIME = new Date('2026-10-30T15:35:53.428Z').getTime();
 
-  function getLocalTarget() {
-    let stored = localStorage.getItem(STORAGE_KEY);
-    let expiry = stored ? parseInt(stored, 10) : NaN;
-    if (isNaN(expiry) || Date.now() >= expiry) {
-      expiry = FALLBACK_END_TIME > Date.now() ? FALLBACK_END_TIME : (Date.now() + 7 * 24 * 60 * 60 * 1000);
-      localStorage.setItem(STORAGE_KEY, expiry);
+  let state = {
+    is_active: true,
+    total_participants: 12,
+    min_participants: 50,
+    countdown_started: false,
+    end_time: null
+  };
+
+  try {
+    const cached = localStorage.getItem(STORAGE_KEY);
+    if (cached) {
+      state = Object.assign(state, JSON.parse(cached));
     }
-    return expiry;
+  } catch (e) {}
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+
+  function render() {
+    const participants = state.total_participants || 0;
+    const target = state.min_participants || 50;
+    const remaining = Math.max(0, target - participants);
+    const pct = Math.min(100, Math.round((participants / target) * 100));
+
+    // Element references
+    const topTimer = document.getElementById('gw-top-timer');
+    const box1 = document.getElementById('gw-box-days');
+    const box2 = document.getElementById('gw-box-hours');
+    const box3 = document.getElementById('gw-box-mins');
+    const box4 = document.getElementById('gw-box-secs');
+
+    const lbl1 = document.getElementById('gw-box-days-lbl');
+    const lbl2 = document.getElementById('gw-box-hours-lbl');
+    const lbl3 = document.getElementById('gw-box-mins-lbl');
+    const lbl4 = document.getElementById('gw-box-secs-lbl');
+
+    const progressPct = document.getElementById('gw-progress-pct');
+    const progressFill = document.getElementById('gw-progress-bar-fill');
+    const progressHint = document.getElementById('gw-progress-hint');
+
+    if (!state.countdown_started) {
+      // Countdown NOT started: awaiting 50 users
+      if (topTimer) {
+        topTimer.innerHTML = `<strong>${participants}/${target}</strong> Iscritti (Mancano ${remaining})`;
+      }
+
+      if (box1) box1.textContent = pad(participants);
+      if (lbl1) lbl1.textContent = 'Iscritti';
+
+      if (box2) box2.textContent = pad(target);
+      if (lbl2) lbl2.textContent = 'Obiettivo';
+
+      if (box3) box3.textContent = pad(remaining);
+      if (lbl3) lbl3.textContent = 'Mancanti';
+
+      if (box4) box4.textContent = '7g';
+      if (lbl4) lbl4.textContent = 'Timer Start';
+
+      if (progressPct) progressPct.textContent = `${pct}%`;
+      if (progressFill) progressFill.style.width = `${pct}%`;
+      if (progressHint) {
+        progressHint.innerHTML = `⏳ Mancano ancora <strong id="gw-remaining-count">${remaining}</strong> iscritti per avviare il countdown di 7 giorni per l'estrazione.`;
+      }
+    } else {
+      // Countdown IS started: 7 days timer ticking
+      const now = Date.now();
+      const targetTime = state.end_time ? new Date(state.end_time).getTime() : (now + 7 * 86400 * 1000);
+      let diff = targetTime - now;
+      if (diff <= 0) diff = 0;
+
+      const totalSecs = Math.floor(diff / 1000);
+      const d = pad(Math.floor(totalSecs / 86400));
+      const h = pad(Math.floor((totalSecs % 86400) / 3600));
+      const m = pad(Math.floor((totalSecs % 3600) / 60));
+      const s = pad(totalSecs % 60);
+
+      if (topTimer) {
+        topTimer.innerHTML = `<span>${d}</span>g <span>${h}</span>h <span>${m}</span>m`;
+      }
+
+      if (box1) box1.textContent = d;
+      if (lbl1) lbl1.textContent = 'Giorni';
+
+      if (box2) box2.textContent = h;
+      if (lbl2) lbl2.textContent = 'Ore';
+
+      if (box3) box3.textContent = m;
+      if (lbl3) lbl3.textContent = 'Minuti';
+
+      if (box4) box4.textContent = s;
+      if (lbl4) lbl4.textContent = 'Secondi';
+
+      if (progressPct) progressPct.textContent = '100% (Sbloccato)';
+      if (progressFill) progressFill.style.width = '100%';
+      if (progressHint) {
+        progressHint.innerHTML = `🎉 <strong>Quota 50 partecipanti raggiunta!</strong> Il countdown di 7 giorni per l'estrazione è attivo.`;
+      }
+    }
   }
 
-  let targetTime = getLocalTarget();
-
-  // Try to fetch official backend target time
+  // Fetch official backend status
   if (typeof fetch === 'function') {
     fetch(API_ENDPOINT)
       .then(r => r.json())
       .then(res => {
-        if (res && res.data && res.data.end_time) {
-          const parsed = new Date(res.data.end_time).getTime();
-          if (!isNaN(parsed) && parsed > Date.now()) {
-            targetTime = parsed;
-            localStorage.setItem(STORAGE_KEY, targetTime);
-          }
+        if (res && res.data) {
+          state.total_participants = res.data.total_participants !== undefined ? res.data.total_participants : state.total_participants;
+          state.min_participants = res.data.min_participants !== undefined ? res.data.min_participants : state.min_participants;
+          state.countdown_started = Boolean(res.data.countdown_started);
+          state.end_time = res.data.end_time;
+          state.is_active = Boolean(res.data.is_active);
+          try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+          } catch (e) {}
+          render();
         }
       })
       .catch(() => {});
   }
 
-  function pad(n) { return String(n).padStart(2, '0'); }
-
-  function update() {
-    const now = Date.now();
-    let diff = targetTime - now;
-    if (diff <= 0) {
-      diff = 0;
-    }
-
-    const totalSecs = Math.floor(diff / 1000);
-    const d = pad(Math.floor(totalSecs / 86400));
-    const h = pad(Math.floor((totalSecs % 86400) / 3600));
-    const m = pad(Math.floor((totalSecs % 3600) / 60));
-    const s = pad(totalSecs % 60);
-
-    // Update announcement bar
-    const topD = document.getElementById('gw-top-days');
-    const topH = document.getElementById('gw-top-hours');
-    const topM = document.getElementById('gw-top-mins');
-    if (topD) topD.textContent = d;
-    if (topH) topH.textContent = h;
-    if (topM) topM.textContent = m;
-
-    // Update main section boxes
-    const boxD = document.getElementById('gw-box-days');
-    const boxH = document.getElementById('gw-box-hours');
-    const boxM = document.getElementById('gw-box-mins');
-    const boxS = document.getElementById('gw-box-secs');
-    if (boxD) boxD.textContent = d;
-    if (boxH) boxH.textContent = h;
-    if (boxM) boxM.textContent = m;
-    if (boxS) boxS.textContent = s;
-  }
-
-  update();
-  setInterval(update, 1000);
+  render();
+  setInterval(render, 1000);
 })();
 
 // ── Navbar scroll ─────────────────────────────────────
